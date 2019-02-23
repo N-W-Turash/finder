@@ -1,11 +1,27 @@
 {
   "name": "team-party-restaurant-finder",
+  "description": "A simple web app to find appropriate restaurant within a limited distance for having team party.",
   "version": "0.1.0",
   "private": true,
+  "author": "N-W-Turash <turash.sust@gmail.com>",
   "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap": "^4.3.1",
+    "classnames": "^2.2.6",
+    "connected-react-router": "^6.3.1",
+    "history": "^4.7.2",
+    "ionicons": "^4.5.5",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.7",
+    "prop-types": "^15.7.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-scripts": "2.1.5"
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.5",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "tether": "^1.4.5"
   },
   "scripts": {
     "start": "react-scripts start",
