@@ -12,11 +12,11 @@ const enhancers = [];
 const middleware = [
     thunk,
     routerMiddleware(history),
-    // checkTokenExpirationMiddleware
 ];
 
+// to enable the redux devtool extension in chrome browser, this should only be enbabled for dev environemnt
 if (process.env.NODE_ENV === 'development') {
-    const devToolsExtension = window.devToolsExtension;
+    const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__; // in previous version it was window.devToolsExtension which have been replaced by this
 
     if (typeof devToolsExtension === 'function') {
         enhancers.push(devToolsExtension());
