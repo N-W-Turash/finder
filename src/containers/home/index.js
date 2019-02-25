@@ -1,13 +1,25 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import SearchForm from './components/searchForm';
+import { selectRandomRestaurant } from "../../modules/actions";
+
 class Home extends React.Component {
 
     componentDidMount() {}
 
     render(){
+
+        const onSelectButtonClick = (e) => {
+            e.preventDefault();
+            dispatch(selectRandomRestaurant());
+        };
+    
+
+        const { dispatch, home } = this.props;
+        let { selectedRestaurant } = home;
+        console.log('selectedRestaurant->', selectedRestaurant);
 
         return (
             <section className="container main-section">
@@ -19,24 +31,25 @@ class Home extends React.Component {
                             <button 
                                 type="button" 
                                 className="btn btn-primary btn-lg btn-block"
+                                onClick={(e) => onSelectButtonClick(e)}
                             >
                                 Let us find one for you
                             </button>
                     </div>
                </div>
                <h4 className="color-white mt-1 text-center">Or</h4>
-               <SearchForm />
+               <SearchForm/>
             </section>
         );
     }
 }
 
 Home.propTypes = {
-    // dispatch: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-
+    home: state.home
 });
 
 export default Home = withRouter(connect(mapStateToProps)(Home));
