@@ -3,6 +3,7 @@ import {
 } from '../actions';
 
 const initialState = {
+    ll: '23.794121, 90.405081',
     restaurants: [],
     selectedRestaurant: ''
 };

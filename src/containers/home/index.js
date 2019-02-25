@@ -15,7 +15,6 @@ class Home extends React.Component {
             e.preventDefault();
             dispatch(selectRandomRestaurant());
         };
-    
 
         const { dispatch, home } = this.props;
         let { selectedRestaurant } = home;
