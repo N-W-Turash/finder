@@ -19,6 +19,7 @@ class Home extends React.Component {
         const { dispatch, home } = this.props;
         let { selectedRestaurant } = home;
         console.log('selectedRestaurant->', selectedRestaurant);
+        console.log(process.env.CLIENT_ID);
 
         return (
             <section className="container main-section">
