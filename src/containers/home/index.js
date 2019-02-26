@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
+import MdRestaurant from 'react-ionicons/lib/MdRestaurant';
+import MdCheckmark from 'react-ionicons/lib/MdCheckmark';
 import SearchForm from './components/searchForm';
 import { getNearbyRestaurantsRequests } from "../../modules/actions";
 
@@ -18,26 +20,28 @@ class Home extends React.Component {
 
         const { dispatch, home } = this.props;
         let { restaurantList, selectedRestaurant } = home;
-        console.log('restaurantList->', restaurantList);
+        // console.log('restaurantList->', restaurantList);
         console.log('selectedRestaurant->', selectedRestaurant);
 
         return (
             <section className="container main-section">
-                <h3 className="mb-3 fw-600 color-white text-center">
-                   Restaurant Finder
+                <h3 className="mb-3 fw-400 color-white text-center ls-title">
+                    <MdRestaurant fontSize="60px" color="#ffffff"  style={{marginRight: '10px', marginTop: '-5px'}}/>
+                    RESTAURANT FINDER
                 </h3>
                 <div className="row justify-content-center">
                     <div className="col-lg-6 col-md-6 col-12">
                             <button 
                                 type="button" 
-                                className="btn btn-primary btn-lg btn-block"
+                                className="btn btn-danger btn-lg btn-block"
                                 onClick={(e) => onSelectButtonClick(e)}
                             >
-                                Let us find one for you
+                                Let us select one for you
+                                <MdCheckmark fontSize="20px" color="#ffffff" style={{marginLeft: '3px', marginTop: '-3px'}}/>
                             </button>
                     </div>
                </div>
-               <h4 className="color-white mt-1 text-center">Or</h4>
+               <h3 className="color-white mt-3 text-center fw-400">OR</h3>
                <SearchForm/>
                {/*<div className="card">
                     {

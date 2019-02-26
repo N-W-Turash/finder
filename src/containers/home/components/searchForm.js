@@ -1,5 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
+import MdSearch from 'react-ionicons/lib/MdSearch';
 
 export default class SearchForm extends React.Component {
 
@@ -22,9 +23,10 @@ export default class SearchForm extends React.Component {
                     <div className="col-auto">
                         <button 
                             type="submit" 
-                            className="btn btn-primary mb-2"
+                            className="btn btn-danger mb-2"
                         >
                             Search
+                            <MdSearch fontSize="20px" color="#ffffff" style={{marginLeft: '3px', marginTop: '-3px'}}/>
                         </button>
                     </div>
                     </div>
