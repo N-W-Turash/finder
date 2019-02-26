@@ -1,45 +1,47 @@
 import { 
-    GET_NEARBY_RESTAURANTS_REQUESTS,
-    GET_NEARBY_RESTAURANTS_SUCCESS,
-    GET_NEARBY_RESTAURANTS_FAILURE,
-    SELECT_A_RANDOM_RESTAURANT, 
+    GET_NEARBY_VENUES_REQUESTS,
+    GET_NEARBY_VENUES_SUCCESS,
+    GET_NEARBY_VENUES_FAILURE,
+    SELECT_A_RANDOM_VENUE, 
 } from '../actions';
 
 const initialState = {
-    restaurantList: [],
-    selectedRestaurant: {},
+    venuestList: [],
+    selectedVenue: {},
     isLoading:false,
     errorObj: {}
 };
 
 export default (state = initialState, action) => {
 
-    // let restaurantList;
+    // let venuestList;
     switch (action.type) {
 
-        case GET_NEARBY_RESTAURANTS_REQUESTS:
+        case GET_NEARBY_VENUES_REQUESTS:
             return {
                 ...state,
                 isLoading: true
             }
 
-        case GET_NEARBY_RESTAURANTS_SUCCESS:
+        case GET_NEARBY_VENUES_SUCCESS:
             return {
                 ...state,
-                restaurantList: state.restaurantList.concat(action.payload.venues)  
+                venuestList: state.venuestList.concat(action.payload.venues),
+                isLoading: false  
             }
 
-        case GET_NEARBY_RESTAURANTS_FAILURE:
+        case GET_NEARBY_VENUES_FAILURE:
             return {
                 ...state,
-                errorObj: {} // need to be updated
+                errorObj: {}, // need to be updated
+                isLoading: false
             }
 
-        case SELECT_A_RANDOM_RESTAURANT:
+        case SELECT_A_RANDOM_VENUE:
 
             return {
                 ...state,
-                selectedRestaurant: state.restaurantList.length ? state.restaurantList[Math.floor(Math.random()*state.restaurantList.length)] : {}
+                selectedVenue: state.venuestList.length ? state.venuestList[action.payload.selectedIndex] : {}
             }
 
         // case FORM_FIELD_CHANGE:

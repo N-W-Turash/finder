@@ -616,6 +616,11 @@ button:focus {
   letter-spacing: 5px;
 }
 
+.card-img-holder {
+  max-height: 150px;
+  overflow: hidden;
+}
+
 
 
 
