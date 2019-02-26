@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import SearchForm from './components/searchForm';
-import { selectRandomRestaurant } from "../../modules/actions";
+import { getNearbyRestaurantsRequests } from "../../modules/actions";
 
 class Home extends React.Component {
 
@@ -13,13 +13,13 @@ class Home extends React.Component {
 
         const onSelectButtonClick = (e) => {
             e.preventDefault();
-            dispatch(selectRandomRestaurant());
+            dispatch(getNearbyRestaurantsRequests());
         };
 
         const { dispatch, home } = this.props;
-        let { selectedRestaurant } = home;
+        let { restaurantList, selectedRestaurant } = home;
+        console.log('restaurantList->', restaurantList);
         console.log('selectedRestaurant->', selectedRestaurant);
-        console.log(process.env.CLIENT_ID);
 
         return (
             <section className="container main-section">
@@ -39,6 +39,13 @@ class Home extends React.Component {
                </div>
                <h4 className="color-white mt-1 text-center">Or</h4>
                <SearchForm/>
+               {/*<div className="card">
+                    {
+                       restaurantList.length && restaurantList.map((restaurant, index) => {
+                           return <p key={index}>{restaurant.location.distance}</p>
+                       }) 
+                    }
+                </div>*/}
             </section>
         );
     }

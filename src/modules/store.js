@@ -14,7 +14,7 @@ const middleware = [
     routerMiddleware(history),
 ];
 
-// to enable the redux devtool extension in chrome browser, this should only be enbabled for dev environemnt
+// to enable the redux devtool extension in chrome browser; [n.b: this should only be enbabled for dev environemnt]
 if (process.env.NODE_ENV === 'development') {
     const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__; // in previous version it was window.devToolsExtension which have been replaced by this
 

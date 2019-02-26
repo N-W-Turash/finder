@@ -1,23 +1,46 @@
 import { 
+    GET_NEARBY_RESTAURANTS_REQUESTS,
+    GET_NEARBY_RESTAURANTS_SUCCESS,
+    GET_NEARBY_RESTAURANTS_FAILURE,
     SELECT_A_RANDOM_RESTAURANT, 
 } from '../actions';
 
 const initialState = {
-    ll: '23.794121, 90.405081',
-    restaurants: [],
-    selectedRestaurant: ''
+    restaurantList: [],
+    selectedRestaurant: {},
+    isLoading:false,
+    errorObj: {}
 };
 
 export default (state = initialState, action) => {
 
+    // let restaurantList;
     switch (action.type) {
+
+        case GET_NEARBY_RESTAURANTS_REQUESTS:
+            return {
+                ...state,
+                isLoading: true
+            }
+
+        case GET_NEARBY_RESTAURANTS_SUCCESS:
+            return {
+                ...state,
+                restaurantList: state.restaurantList.concat(action.payload.venues)  
+            }
+
+        case GET_NEARBY_RESTAURANTS_FAILURE:
+            return {
+                ...state,
+                errorObj: {} // need to be updated
+            }
 
         case SELECT_A_RANDOM_RESTAURANT:
 
-        return {
-            ...state,
-            selectedRestaurant: 'Test value restaurant!'
-        }
+            return {
+                ...state,
+                selectedRestaurant: state.restaurantList.length ? state.restaurantList[Math.floor(Math.random()*state.restaurantList.length)] : {}
+            }
 
         // case FORM_FIELD_CHANGE:
 
@@ -38,28 +61,5 @@ export default (state = initialState, action) => {
 //     return {
 //         type: FORM_FIELD_CHANGE,
 //         payload: {obj, field, value}
-//     }
-// };
-
-// export const getNearbyRestaurants = () => {
-
-//     return dispatch => {
-//         return axios.get(`$(url)`)
-//             .then(response => {
-//                 dispatch(getNearbyRestaurantsSuccess(response.data));
-//             })
-//             .catch((error) => {
-
-//                 if(error.response){
-//                     let errors = error.response.data;
-//                     dispatch(getNearbyRestaurantsFailure(errors));
-//                 }
-//                 else if (error.request) {
-//                     console.log(error.request);
-//                 }
-//                 else {
-//                     console.log('Error', error.message);
-//                 }
-//             });
 //     }
 // };
