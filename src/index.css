@@ -607,7 +607,7 @@ button:focus {
   min-height: 100%;
 }
 
-.main-section, .custom-card, .custom-list-group .list-group-item {
+.main-section, .custom-card, .custom-list-group .list-group-item, .not-found-container {
   background-color: rgba(0, 0, 0, .4);
 }
 

@@ -95,7 +95,7 @@ class Home extends React.Component {
                                             }
                                         </li>
                                     </ul>
-                                    <Link to="https://google.com" className="btn btn-info">View Details</Link>
+                                    <Link to="/unknown" className="btn btn-info">View Details</Link>
                                 </div>
                             </div>
                         </div>
