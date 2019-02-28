@@ -607,8 +607,12 @@ button:focus {
   min-height: 100%;
 }
 
-.main-section, .custom-card, .custom-list-group .list-group-item, .not-found-container {
+.main-section, .custom-list-group .list-group-item, .not-found-container, .selected-venue-container {
   background-color: rgba(0, 0, 0, .4);
+}
+
+.custom-card{
+  background-color: transparent;
 }
 
 .main-section {
@@ -641,6 +645,9 @@ button:focus {
 
 .uppercase {
   text-transform: uppercase;
+}
+.selected-venue-container {
+  min-height: 550px;
 }
 
 

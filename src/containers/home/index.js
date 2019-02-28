@@ -1,33 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import MdRestaurant from 'react-ionicons/lib/MdRestaurant';
-import MdCall from 'react-ionicons/lib/MdCall';
 import SearchForm from './components/searchForm';
-import Marker from '../../assets/imgs/marker.svg';
-import Type from '../../assets/imgs/type.svg';
-import Default from '../../assets/imgs/food.jpg';
+import SelectedVenue from './components/selectedVenue';
+import VenueMap from './components/venueMap';
 import { getNearbyVenues, GET_NEARBY_VENUES_REQUESTS } from "../../modules/actions";
 
 class Home extends React.Component {
 
     componentDidMount() {}
 
-    render(){
+    render() {
+
+        // let isTestModeView = false;
+
+        const { dispatch, home } = this.props;
+        let { selectedVenue, isLoading, testMode } = home;
 
         const onSelectButtonClick = (e) => {
             e.preventDefault();
-            dispatch({type: GET_NEARBY_VENUES_REQUESTS});
-            dispatch(getNearbyVenues());
+            if(!testMode) {
+                dispatch({type: GET_NEARBY_VENUES_REQUESTS});
+                dispatch(getNearbyVenues());
+            }
+
+            // else {
+            //     isTestModeView = true
+            // }
         };
-
-        const { dispatch, home } = this.props;
-        let { selectedVenue, isLoading } = home;
-        if(selectedVenue && selectedVenue.details) {
-            console.log('selectedVenue->', selectedVenue);
-        }
-
+          
         return (
             <section className="container">
                 <div className="main-section" key={1}>
@@ -44,7 +47,6 @@ class Home extends React.Component {
                                     disabled={isLoading}
                                 >
                                     { isLoading ? 'Selecting...' : 'Let us select one for you' }
-                                {/*<MdCheckmark fontSize="20px" color="#ffffff" style={{marginLeft: '3px', marginTop: '-3px'}}/>*/}
                                 </button>
                         </div>
                     </div>
@@ -53,55 +55,56 @@ class Home extends React.Component {
                 </div>
 
                 {
-                    selectedVenue && selectedVenue.details ?
-                    <div className="row mt-5">
-                        <div className="col-lg-8">
-                            <div className="card custom-card">
-                                <div className="card-img-holder">
-                                    <img src={Default} className="card-img-top" alt="..." />
-                                </div>
-                                <div className="card-body">
-                                    <h5 className="card-title uppercase fw-400 ls-title-">{selectedVenue.name}</h5>
-                                    {
-                                        selectedVenue && selectedVenue.details.venue.description ?
-                                        <p>{selectedVenue.details.venue.description}</p> :
-                                        undefined
-                                    }
-                                    <ul className="list-group custom-list-group list-group-flush mb-3">
-                                        <li className="list-group-item">
-                                            <img src={Marker} alt="address" className="svg-icon-left"/>
-                                            {
-                                                selectedVenue.location && selectedVenue.location.address ?                                              
-                                                `${selectedVenue.location.address}, ${selectedVenue.location.city}` :                                               
-                                                `Dhaka (Details not availbale)`
-                                            }
-                                        </li>
-                                        <li className="list-group-item">
-                                            <img src={Type} alt="type" className="svg-icon-left"/>
-                                            {
-                                                selectedVenue.categories &&
-                                                selectedVenue.categories[0].name ?
-                                                selectedVenue.categories[0].name :
-                                                `N/A`
-                                            }
-                                        </li>
-                                        <li className="list-group-item">
-                                            <MdCall fontSize="20px" color="#ffffff"  style={{marginRight: '10px', marginTop: '-5px'}}/>
-                                            {
-                                                selectedVenue && selectedVenue.details && selectedVenue.details.contact &&
-                                                selectedVenue.details.contact.phone ? 
-                                                selectedVenue.details.contact.phone : 
-                                                'N/A'
-                                            }
-                                        </li>
-                                    </ul>
-                                    <Link to="/unknown" className="btn btn-info">View Details</Link>
-                                </div>
+                    !testMode &&selectedVenue && selectedVenue.details &&
+                    
+                    <div className="selected-venue-container mb-5 px-4">
+                        {/* <div className="row">
+                            <div className="col-12">
+                                <h3 className="fw-400 color-white uppercase mt-0 mb-0">This place has been selected for you!</h3>
+                            </div>
+                        </div> */}
+                        <div className="row mt-5">
+                            <SelectedVenue 
+                                selectedVenue={selectedVenue}
+                            />
+                            <div className="col-lg-6 col-12">
+                                {
+                                    selectedVenue && selectedVenue.location &&
+                                    <div className="selected-venue-map-container mt-4">
+                                        {
+                                            <VenueMap
+                                                location={selectedVenue.location}
+                                            />
+                                        }
+                                    </div>
+                                }
                             </div>
                         </div>
-                    </div> :
-                    undefined
+                    </div>
                 }
+
+                {/* {
+                    isTestModeView &&
+                    <div className="selected-venue-container mb-5 px-4">
+                    <div className="row mt-5">
+                        <SelectedVenue 
+                            selectedVenue={selectedVenue}
+                        />
+                        <div className="col-lg-6 col-12">
+                            {
+                                selectedVenue && selectedVenue.location &&
+                                <div className="selected-venue-map-container mt-4">
+                                    {
+                                        <VenueMap
+                                            location={selectedVenue.location}
+                                        />
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                } */}
             </section>
         );
     }

@@ -12,7 +12,8 @@ const initialState = {
     venuestList: [],
     selectedVenue: {},
     errorObj: {},
-    isLoading: false
+    isLoading: false,
+    testMode: false
 };
 
 export default (state = initialState, action) => {
