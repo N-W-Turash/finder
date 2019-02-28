@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import MdCall from 'react-ionicons/lib/MdCall';
 import Marker from '../../../assets/imgs/marker.svg';
 import Type from '../../../assets/imgs/type.svg';
-import Default from '../../../assets/imgs/food.jpg';
+import Default from '../../../assets/imgs/default.jpg';
 
 export default class SelectedVenue extends React.Component {
 
@@ -15,12 +15,36 @@ export default class SelectedVenue extends React.Component {
             console.log('selectedVenue->', selectedVenue);
         }
 
+        const resolvedImageSource = () => {
+            let src = Default;
+            const { selectedVenue } = this.props;
+            if(selectedVenue && selectedVenue.details && selectedVenue.details.venue.bestPhoto) {
+                src = `${selectedVenue.details.venue.bestPhoto.prefix}500x300${selectedVenue.details.venue.bestPhoto.suffix}`
+            }
+            return src;
+        }
+
         return (
            
             <div className="col-lg-6 col-12">
                 <div className="card custom-card mt-4">
                     <div className="card-img-holder">
-                        <img src={Default} className="card-img-top" alt="..." />
+                        <img src={resolvedImageSource()} className="card-img-top" alt="..." />
+                        {/* <img src={Default} className="card-img-top" alt="..." /> */}
+                        {/* {
+                            selectedVenue && selectedVenue.details && selectedVenue.details.venue.bestPhoto ?
+                            <img 
+                                src={``} 
+                                className="card-img-top" 
+                                alt="Venue Photo" 
+                            /> :
+                            <img 
+                                src={Default} 
+                                className="card-img-top" 
+                                alt="Default Photo" 
+                            /> 
+                        } */}
+                       
                     </div>
                     <div className="card-body">
                         <h5 className="card-title uppercase fw-400 ls-title-">{selectedVenue.name}</h5>

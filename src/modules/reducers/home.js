@@ -5,7 +5,8 @@ import {
     SELECT_A_RANDOM_VENUE,
     GET_SELECTED_VENUE_DATA_REQUEST,
     GET_SELECTED_VENUE_DATA_SUCCESS,
-    GET_SELECTED_VENUE_DATA_FAILURE 
+    GET_SELECTED_VENUE_DATA_FAILURE,
+    REMOVE_SUCCESS_MESSAGE 
 } from '../actions';
 
 const initialState = {
@@ -13,7 +14,7 @@ const initialState = {
     selectedVenue: {},
     errorObj: {},
     isLoading: false,
-    testMode: false
+    successMessage: ''
 };
 
 export default (state = initialState, action) => {
@@ -61,7 +62,8 @@ export default (state = initialState, action) => {
                     ...state.selectedVenue,
                     details: action.payload.details
                 },
-                isLoading: false
+                isLoading: false,
+                successMessage: 'A venue has been selected for you!'
             }
 
         case GET_SELECTED_VENUE_DATA_FAILURE:
@@ -69,6 +71,12 @@ export default (state = initialState, action) => {
                 ...state,
                 isLoading: false
             }
+
+        case REMOVE_SUCCESS_MESSAGE:
+            return {
+                ...state,
+                successMessage: ''
+            };
 
         // case FORM_FIELD_CHANGE:
 

@@ -12,5 +12,7 @@ export {
     GET_SELECTED_VENUE_DATA_FAILURE,
     getSelectedVenueData,
     getSelectedvenueDataSuccess,
-    getSelectedvenueDataFailure
+    getSelectedvenueDataFailure,
+    REMOVE_SUCCESS_MESSAGE,
+    removeSuccessMessage
 } from './home';

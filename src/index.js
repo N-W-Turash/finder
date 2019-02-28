@@ -8,7 +8,6 @@ import Popper  from 'popper.js'
 import Tether from 'tether';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-// import 'ionicons/dist/css/ionicons.css';
 
 import App from './containers/app';
 import './index.css';

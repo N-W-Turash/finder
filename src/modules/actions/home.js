@@ -20,6 +20,8 @@ export const GET_SELECTED_VENUE_DATA_REQUEST = "home/GET_SELECTED_VENUE_DATA_REQ
 export const GET_SELECTED_VENUE_DATA_SUCCESS = "home/GET_SELECTED_VENUE_DATA_SUCCESS";
 export const GET_SELECTED_VENUE_DATA_FAILURE = "home/GET_SELECTED_VENUE_DATA_FAILURE";
 
+export const REMOVE_SUCCESS_MESSAGE = "home/REMOVE_SUCCESS_MESSAGE";
+
 export const getNearbyVenues = () => {
 
     return dispatch => {
@@ -116,4 +118,13 @@ export const getSelectedvenueDataFailure = (response) => {
         }
     }
 };
+
+export const removeSuccessMessage = () => {
+    return {
+        type: REMOVE_SUCCESS_MESSAGE,
+        payload: {}
+    }
+};
+
+
 

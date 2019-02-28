@@ -3,32 +3,43 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import MdRestaurant from 'react-ionicons/lib/MdRestaurant';
+import IosRefresh from 'react-ionicons/lib/IosRefresh';
+import { success } from "react-notification-system-redux";
 import SearchForm from './components/searchForm';
 import SelectedVenue from './components/selectedVenue';
 import VenueMap from './components/venueMap';
-import { getNearbyVenues, GET_NEARBY_VENUES_REQUESTS } from "../../modules/actions";
+import { getNearbyVenues, GET_NEARBY_VENUES_REQUESTS, removeSuccessMessage } from "../../modules/actions";
 
 class Home extends React.Component {
 
     componentDidMount() {}
 
+    componentWillReceiveProps(nextProps) {
+        const { dispatch } = nextProps;
+        const { successMessage } = nextProps.home;
+        const successNotificationOpts = {
+            title: 'Success!',
+            message: successMessage,
+            position: 'tr',
+            autoDismiss: 1
+        };
+
+        if(successMessage) {
+            dispatch(success(successNotificationOpts));
+            dispatch(removeSuccessMessage());
+        }
+    }
+
     render() {
 
-        // let isTestModeView = false;
-
         const { dispatch, home } = this.props;
-        let { selectedVenue, isLoading, testMode } = home;
+        let { selectedVenue, isLoading } = home;
 
         const onSelectButtonClick = (e) => {
             e.preventDefault();
-            if(!testMode) {
-                dispatch({type: GET_NEARBY_VENUES_REQUESTS});
-                dispatch(getNearbyVenues());
-            }
-
-            // else {
-            //     isTestModeView = true
-            // }
+            dispatch({type: GET_NEARBY_VENUES_REQUESTS});
+            dispatch(getNearbyVenues());
+        
         };
           
         return (
@@ -55,14 +66,16 @@ class Home extends React.Component {
                 </div>
 
                 {
-                    !testMode &&selectedVenue && selectedVenue.details &&
+                    isLoading &&
+                    <div className="spinner-container">
+                        <IosRefresh fontSize="120px" color="#ffffff" rotate={true} />
+                    </div>
+                }
+
+                {
+                    !isLoading && selectedVenue && selectedVenue.details &&
                     
                     <div className="selected-venue-container mb-5 px-4">
-                        {/* <div className="row">
-                            <div className="col-12">
-                                <h3 className="fw-400 color-white uppercase mt-0 mb-0">This place has been selected for you!</h3>
-                            </div>
-                        </div> */}
                         <div className="row mt-5">
                             <SelectedVenue 
                                 selectedVenue={selectedVenue}
@@ -82,29 +95,6 @@ class Home extends React.Component {
                         </div>
                     </div>
                 }
-
-                {/* {
-                    isTestModeView &&
-                    <div className="selected-venue-container mb-5 px-4">
-                    <div className="row mt-5">
-                        <SelectedVenue 
-                            selectedVenue={selectedVenue}
-                        />
-                        <div className="col-lg-6 col-12">
-                            {
-                                selectedVenue && selectedVenue.location &&
-                                <div className="selected-venue-map-container mt-4">
-                                    {
-                                        <VenueMap
-                                            location={selectedVenue.location}
-                                        />
-                                    }
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-                } */}
             </section>
         );
     }
