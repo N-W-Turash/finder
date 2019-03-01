@@ -47,9 +47,7 @@ class Home extends React.Component {
     render() {
 
         const { dispatch, home } = this.props;
-        let { selectedVenue, isLoading, searchText, venuesList, isSelecting, searchedVenuesList } = home;
-
-        // console.log('venuesList->', venuesList);
+        let { selectedVenue, isLoading, searchText, venuesList, isSelecting, searchedVenuesList, searchFlag } = home;
 
         const onSelectButtonClick = (e) => {
             e.preventDefault();
@@ -119,10 +117,9 @@ class Home extends React.Component {
                 }
 
                 {
-                    searchedVenuesList.length ?
-                    
+                    !selectedVenue.id && searchedVenuesList.length  && 
                     <div className="seareched-venues-container mb-5 px-4">
-                        <div className="row mt-5 row-flex">
+                        <div className="row row-flex">
                             {
                                 searchedVenuesList.map((searchedVenue, index) => {
                                     return (
@@ -135,16 +132,17 @@ class Home extends React.Component {
                                 })
                             }
                         </div>
-                    </div> :
-                    searchText && 
+                    </div> 
+                }
+
+                {
+                    !selectedVenue.id && !searchedVenuesList.length && searchFlag &&
                     <div className="well mt-5 py-3">
                         <h1 className="color-white text-center mb-0">
                             Nothing Found
                         </h1>
                     </div>
                 }
-
-                
             </section>
         );
     }

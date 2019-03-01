@@ -20,7 +20,8 @@ const initialState = {
     isSelecting: false,
     successMessage: '',
     searchText: '',
-    searchedVenuesList: []
+    searchedVenuesList: [],
+    searchFlag: false,
 };
 
 export default (state = initialState, action) => {
@@ -69,7 +70,8 @@ export default (state = initialState, action) => {
                     details: action.payload.details,
                 },
                 successMessage: 'A venue has been selected for you!',
-                isSelecting: false
+                isSelecting: false,
+                searchedVenuesList: [],
             }
 
         case GET_SELECTED_VENUE_DATA_FAILURE:
@@ -105,15 +107,20 @@ export default (state = initialState, action) => {
             });
           
             searchedVenuesList= searchedVenuesList.filter((venue, index) => {
-                let regex = new RegExp(action.payload.searchText, 'ig');
-                if(regex.test(venue['name']) || regex.test(venue['location.address']) || regex.test(venue['categories.0.name'])) {
-                    return venue;
+                let text = action.payload.searchText;
+                let regex = new RegExp(text.trim(), 'ig');
+                if(text.trim() !== "") {
+                    if(regex.test(venue['name']) || regex.test(venue['location.address']) || regex.test(venue['categories.0.name'])) {
+                        return venue;
+                    }
                 }
+                return 0;
             });
-            console.log('searchVenuseList->', searchedVenuesList);
             return {
                 ...state,
                 searchedVenuesList: searchedVenuesList,
+                searchFlag: true,
+                selectedVenue: {}
             };
 
         default:
