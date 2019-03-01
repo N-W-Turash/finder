@@ -9,6 +9,7 @@ import rootReducer from './reducers';
  * createBrowserHistory is for use in modern web browsers that support the HTML5 history API.
  * 
  */
+
 export const history = createHistory();
 
 const initialState = {};

@@ -1,3 +1,4 @@
+import flatten from 'flat';
 import { 
     GET_NEARBY_VENUES_REQUESTS,
     GET_NEARBY_VENUES_SUCCESS,
@@ -6,52 +7,57 @@ import {
     GET_SELECTED_VENUE_DATA_REQUEST,
     GET_SELECTED_VENUE_DATA_SUCCESS,
     GET_SELECTED_VENUE_DATA_FAILURE,
-    REMOVE_SUCCESS_MESSAGE 
+    REMOVE_SUCCESS_MESSAGE,
+    FORM_FIELD_CHANGE,
+    SEARCH_VENUES, 
 } from '../actions';
 
 const initialState = {
-    venuestList: [],
+    venuesList: [],
     selectedVenue: {},
     errorObj: {},
     isLoading: false,
-    successMessage: ''
+    isSelecting: false,
+    successMessage: '',
+    searchText: '',
+    searchedVenuesList: []
 };
 
 export default (state = initialState, action) => {
 
-    // let venuestList;
     switch (action.type) {
 
         case GET_NEARBY_VENUES_REQUESTS:
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
             }
 
         case GET_NEARBY_VENUES_SUCCESS:
             return {
                 ...state,
-                venuestList: state.venuestList.concat(action.payload.venues),  
+                venuesList: state.venuesList.concat(action.payload.venues),  
+                isLoading: false,
             }
 
         case GET_NEARBY_VENUES_FAILURE:  // need to be updated
             return {
                 ...state,
-                isLoading: false
+                isLoading: false,
             }
 
         case SELECT_A_RANDOM_VENUE:
 
             return {
                 ...state,
-                selectedVenue: state.venuestList.length ? state.venuestList[action.payload.selectedIndex] : {}
+                selectedVenue: state.venuesList.length ? state.venuesList[action.payload.selectedIndex] : {},
+                isSelecting: true,
             }
 
         case GET_SELECTED_VENUE_DATA_REQUEST:
             
             return {
                 ...state,
-                isSelectedVenueDataLoading: true
             }
 
         case GET_SELECTED_VENUE_DATA_SUCCESS:
@@ -60,42 +66,58 @@ export default (state = initialState, action) => {
                 ...state,
                 selectedVenue: {
                     ...state.selectedVenue,
-                    details: action.payload.details
+                    details: action.payload.details,
                 },
-                isLoading: false,
-                successMessage: 'A venue has been selected for you!'
+                successMessage: 'A venue has been selected for you!',
+                isSelecting: false
             }
 
         case GET_SELECTED_VENUE_DATA_FAILURE:
             return {
                 ...state,
-                isLoading: false
+                isLoading: false,
+                isSelecting: false,
             }
 
         case REMOVE_SUCCESS_MESSAGE:
             return {
                 ...state,
-                successMessage: ''
+                successMessage: '',
             };
 
-        // case FORM_FIELD_CHANGE:
+        /**
+         * 
+         * 
+         */
 
-        //     let newObj ={ ...state[action.payload.obj] };
-        //     newObj[action.payload.field] = action.payload.value;
+        case FORM_FIELD_CHANGE:
+            return {
+                ...state,
+                [action.payload.fieldName]: action.payload.value,
+            };
 
-        //     return {
-        //         ...state,
-        //         [action.payload.obj]: newObj
-        //     };
+
+        case SEARCH_VENUES:
+            let newVenueList = state.venuesList.concat([]);
+            let searchedVenuesList = [];
+            newVenueList.forEach((venue, index) => {
+                searchedVenuesList.push(flatten(venue));
+            });
+          
+            searchedVenuesList= searchedVenuesList.filter((venue, index) => {
+                let regex = new RegExp(action.payload.searchText, 'ig');
+                if(regex.test(venue['name']) || regex.test(venue['location.address']) || regex.test(venue['categories.0.name'])) {
+                    return venue;
+                }
+            });
+            console.log('searchVenuseList->', searchedVenuesList);
+            return {
+                ...state,
+                searchedVenuesList: searchedVenuesList,
+            };
 
         default:
-            return state
+            return state;
     }
 }
 
-// export const formFieldChange = (obj, field, value) => {
-//     return {
-//         type: FORM_FIELD_CHANGE,
-//         payload: {obj, field, value}
-//     }
-// };

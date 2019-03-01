@@ -607,7 +607,7 @@ button:focus {
   min-height: 100%;
 }
 
-.main-section, .custom-list-group .list-group-item, .not-found-container, .selected-venue-container {
+.main-section, .custom-list-group .list-group-item, .not-found-container, .selected-venue-container, .well {
   background-color: rgba(0, 0, 0, .4);
 }
 
@@ -653,6 +653,16 @@ button:focus {
 .spinner-container {
   text-align: center;
   margin-top: 60px;
+}
+
+.searched-venue-component {
+  background-color: rgba(0, 0, 0, .4)!important;
+  height: 100%;
+}
+
+.row-flex {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 

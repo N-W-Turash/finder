@@ -22,6 +22,9 @@ export const GET_SELECTED_VENUE_DATA_FAILURE = "home/GET_SELECTED_VENUE_DATA_FAI
 
 export const REMOVE_SUCCESS_MESSAGE = "home/REMOVE_SUCCESS_MESSAGE";
 
+export const FORM_FIELD_CHANGE = "home/FORM_FIELD_CHANGE";
+export const SEARCH_VENUES = "home/SEARCH_VENUES";
+
 export const getNearbyVenues = () => {
 
     return dispatch => {
@@ -29,10 +32,6 @@ export const getNearbyVenues = () => {
             .then(res => {
                 let venues = res.data.response.venues
                 dispatch(getNearbyVenuesSuccess(venues));
-                let randomIndex = Math.floor(Math.random()*venues.length);
-                dispatch(selectRandomVenue(randomIndex));
-                dispatch({type: GET_SELECTED_VENUE_DATA_REQUEST});
-                dispatch(getSelectedVenueData(venues[randomIndex].id));
             })
             .catch((error) => {
 
@@ -71,7 +70,9 @@ export const getNearbyVenuesFailure = (response) => {
 export const selectRandomVenue = (selectedIndex) => {
     return {
         type: SELECT_A_RANDOM_VENUE,
-        payload: { selectedIndex }
+        payload: { 
+            selectedIndex 
+        }
     }
 };
 
@@ -125,6 +126,25 @@ export const removeSuccessMessage = () => {
         payload: {}
     }
 };
+
+export const formFieldChange = (fieldName, value) => {
+    return {
+        type: FORM_FIELD_CHANGE,
+        payload: {
+            fieldName, value
+        }
+    }
+};
+
+export const searchVenues = (searchText) => {
+    return {
+        type: SEARCH_VENUES,
+        payload: {
+            searchText
+        }
+    }
+};
+
 
 
 

@@ -8,11 +8,25 @@ import { success } from "react-notification-system-redux";
 import SearchForm from './components/searchForm';
 import SelectedVenue from './components/selectedVenue';
 import VenueMap from './components/venueMap';
-import { getNearbyVenues, GET_NEARBY_VENUES_REQUESTS, removeSuccessMessage } from "../../modules/actions";
+import SearchedVenue from './components/searchedVenue';
+import { 
+    getNearbyVenues, 
+    GET_NEARBY_VENUES_REQUESTS, 
+    removeSuccessMessage ,
+    formFieldChange,
+    selectRandomVenue,
+    GET_SELECTED_VENUE_DATA_REQUEST,
+    getSelectedVenueData,
+    searchVenues,
+} from "../../modules/actions";
 
 class Home extends React.Component {
 
-    componentDidMount() {}
+    componentDidMount() {
+        const { dispatch } = this.props;
+        dispatch({type: GET_NEARBY_VENUES_REQUESTS});
+        dispatch(getNearbyVenues());
+    }
 
     componentWillReceiveProps(nextProps) {
         const { dispatch } = nextProps;
@@ -33,13 +47,16 @@ class Home extends React.Component {
     render() {
 
         const { dispatch, home } = this.props;
-        let { selectedVenue, isLoading } = home;
+        let { selectedVenue, isLoading, searchText, venuesList, isSelecting, searchedVenuesList } = home;
+
+        // console.log('venuesList->', venuesList);
 
         const onSelectButtonClick = (e) => {
             e.preventDefault();
-            dispatch({type: GET_NEARBY_VENUES_REQUESTS});
-            dispatch(getNearbyVenues());
-        
+            let randomIndex = Math.floor(Math.random()*venuesList.length);
+            dispatch(selectRandomVenue(randomIndex));
+            dispatch({type: GET_SELECTED_VENUE_DATA_REQUEST});
+            dispatch(getSelectedVenueData(venuesList[randomIndex].id));
         };
           
         return (
@@ -55,25 +72,30 @@ class Home extends React.Component {
                                     type="button" 
                                     className="btn btn-danger btn-lg btn-block"
                                     onClick={(e) => onSelectButtonClick(e)}
-                                    disabled={isLoading}
+                                    disabled={isLoading || isSelecting}
                                 >
-                                    { isLoading ? 'Selecting...' : 'Let us select one for you' }
+                                    { isSelecting ? 'Selecting...' : 'Let us select one for you' }
                                 </button>
                         </div>
                     </div>
                     <h3 className="color-white mt-3 text-center fw-400">OR</h3>
-                    <SearchForm/>
+                    <SearchForm
+                        dispatch={dispatch}
+                        formFieldChange={formFieldChange}
+                        searchText={searchText}
+                        searchVenues={searchVenues}
+                    />
                 </div>
 
                 {
-                    isLoading &&
+                    isSelecting &&
                     <div className="spinner-container">
                         <IosRefresh fontSize="120px" color="#ffffff" rotate={true} />
                     </div>
                 }
 
                 {
-                    !isLoading && selectedVenue && selectedVenue.details &&
+                    !isSelecting && selectedVenue && selectedVenue.details &&
                     
                     <div className="selected-venue-container mb-5 px-4">
                         <div className="row mt-5">
@@ -95,6 +117,34 @@ class Home extends React.Component {
                         </div>
                     </div>
                 }
+
+                {
+                    searchedVenuesList.length ?
+                    
+                    <div className="seareched-venues-container mb-5 px-4">
+                        <div className="row mt-5 row-flex">
+                            {
+                                searchedVenuesList.map((searchedVenue, index) => {
+                                    return (
+                                        <div className="col-lg-4 mt-4" key={index}>
+                                            <SearchedVenue 
+                                                searchedVenue={searchedVenue}
+                                            />
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
+                    </div> :
+                    searchText && 
+                    <div className="well mt-5 py-3">
+                        <h1 className="color-white text-center mb-0">
+                            Nothing Found
+                        </h1>
+                    </div>
+                }
+
+                
             </section>
         );
     }

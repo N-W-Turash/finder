@@ -8,12 +8,12 @@ import Default from '../../../assets/imgs/default.jpg';
 
 export default class SelectedVenue extends React.Component {
 
-    render(){
+    render() {
 
         const { selectedVenue } = this.props;
-        if(selectedVenue && selectedVenue.details) {
-            console.log('selectedVenue->', selectedVenue);
-        }
+        // if(selectedVenue && selectedVenue.details) {
+        //     console.log('selectedVenue->', selectedVenue);
+        // }
 
         const resolvedImageSource = () => {
             let src = Default;
@@ -29,24 +29,9 @@ export default class SelectedVenue extends React.Component {
             <div className="col-lg-6 col-12">
                 <div className="card custom-card mt-4">
                     <div className="card-img-holder">
-                        <img src={resolvedImageSource()} className="card-img-top" alt="..." />
-                        {/* <img src={Default} className="card-img-top" alt="..." /> */}
-                        {/* {
-                            selectedVenue && selectedVenue.details && selectedVenue.details.venue.bestPhoto ?
-                            <img 
-                                src={``} 
-                                className="card-img-top" 
-                                alt="Venue Photo" 
-                            /> :
-                            <img 
-                                src={Default} 
-                                className="card-img-top" 
-                                alt="Default Photo" 
-                            /> 
-                        } */}
-                       
+                        <img src={resolvedImageSource()} className="card-img-top" alt="Venue" /> 
                     </div>
-                    <div className="card-body">
+                    <div className="card-body fs-2">
                         <h5 className="card-title uppercase fw-400 ls-title-">{selectedVenue.name}</h5>
                         {
                             selectedVenue && selectedVenue.details.venue.description ?
