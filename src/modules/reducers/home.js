@@ -69,6 +69,7 @@ export default (state = initialState, action) => {
                 ...state,
                 venuesList: state.venuesList.concat(action.payload.venues),  
                 isLoading: false,
+                errorObj: {},
             }
 
         /**
@@ -129,6 +130,7 @@ export default (state = initialState, action) => {
                 isSelecting: false,
                 searchedVenuesList: [],
                 isLoading: false,
+                errorObj: {},
             }
 
         /**
@@ -141,6 +143,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 isSelecting: false,
+                errorObj: action.payload.errorObject,
             }
 
         /**
@@ -203,7 +206,8 @@ export default (state = initialState, action) => {
                 ...state,
                 searchedVenuesList: searchedVenuesList,
                 searchFlag: true,
-                selectedVenue: {}
+                selectedVenue: {},
+                errorObj: {},
             };
 
         /**

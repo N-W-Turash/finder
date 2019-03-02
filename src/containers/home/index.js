@@ -70,7 +70,9 @@ class Home extends React.Component {
     render() {
 
         const { dispatch, home } = this.props;
-        let { selectedVenue, isLoading, searchText, venuesList, isSelecting, searchedVenuesList, searchFlag, showViewDetailsModal } = home;
+        let { selectedVenue, isLoading, searchText, venuesList, isSelecting, searchedVenuesList, searchFlag, showViewDetailsModal, errorObj } = home;
+
+        console.log('errorObject->', errorObj);
 
         const onSelectButtonClick = (e) => {
             e.preventDefault();
@@ -117,6 +119,13 @@ class Home extends React.Component {
                         searchVenues={searchVenues}
                     />
                 </div>
+
+                {
+                    errorObj && errorObj.meta && errorObj.meta.code &&
+                    <div className="alert alert-danger mt-4" role="alert">
+                        An unexpected error occurred while retrieving the data; please try again later.
+                    </div>
+                }
 
                 {
                     isSelecting &&

@@ -198,16 +198,16 @@ export const getSelectedvenueDataSuccess = (details) => {
     return {
         type: GET_SELECTED_VENUE_DATA_SUCCESS,
         payload : {
-            details
+            details,
         }
     }
 };
 
-export const getSelectedvenueDataFailure = (response) => {
+export const getSelectedvenueDataFailure = (errorObject) => {
     return {
         type: GET_SELECTED_VENUE_DATA_FAILURE,
         payload : {
-            response
+            errorObject,
         }
     }
 };
@@ -237,7 +237,7 @@ export const formFieldChange = (fieldName, value) => {
     return {
         type: FORM_FIELD_CHANGE,
         payload: {
-            fieldName, value
+            fieldName, value,
         }
     }
 };
@@ -253,7 +253,7 @@ export const searchVenues = (searchText) => {
     return {
         type: SEARCH_VENUES,
         payload: {
-            searchText
+            searchText,
         }
     }
 };
