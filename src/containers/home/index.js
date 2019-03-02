@@ -64,9 +64,9 @@ class Home extends React.Component {
             dispatch(viewDetailsModalClose());
         };
     
-        const openViewDetailsModal = (transaction) => {
+        const openViewDetailsModal = () => {
             const {dispatch} = this.props;
-            dispatch(viewDetailsModalOpen(transaction));
+            dispatch(viewDetailsModalOpen());
         };
           
         return (

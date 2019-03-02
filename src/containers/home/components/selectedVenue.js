@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import MdCall from 'react-ionicons/lib/MdCall';
 import Marker from '../../../assets/imgs/marker.svg';
 import Type from '../../../assets/imgs/type.svg';

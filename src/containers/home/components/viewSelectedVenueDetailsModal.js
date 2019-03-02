@@ -7,7 +7,6 @@ export default class ViewSelectedVenueDetailsModal extends Component {
     render() {
 
         const { open, onClose, selectedVenue } = this.props;
-        console.log('selectedVenueDetails->', selectedVenue)
         const { details: { venue } } = selectedVenue;
 
         return (
@@ -24,7 +23,7 @@ export default class ViewSelectedVenueDetailsModal extends Component {
                 }}
 
             >
-                <h3 className="">Selected Venue Details</h3>
+                <h3 className="mt-0">Selected Venue Details</h3>
                 <div className="view-details-section">
                     <p className="mb-1">Name:</p>
                     <p>

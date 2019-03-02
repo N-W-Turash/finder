@@ -1,3 +1,9 @@
+/**
+ * All the action types and action creatiors have been gathered here so that
+ * any file can import them using the path like '/path/to/be/somewhere/actions'.  
+ * 
+ */
+
 export { 
     GET_NEARBY_VENUES_REQUESTS,
     GET_NEARBY_VENUES_SUCCESS,
