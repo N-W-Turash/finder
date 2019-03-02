@@ -18,10 +18,10 @@ export default class VenueMap extends React.Component {
 
         /**
          * The following props have been used in the Map and Marker components 
-         * center: Coordinates of the map center in the format [latitude, langitude]
-         * zoom: Current zoom leve
-         * height: Height in pixel
-         * anchor: coordinates where the map marker is set
+         * > center: Coordinates of the map center in the format [latitude, langitude]
+         * > zoom: Current zoom leve
+         * > height: Height in pixel
+         * > anchor: coordinates where the map marker is set
          */
 
         return (

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import {reducer as notifications} from 'react-notification-system-redux';
+import { reducer as notifications } from 'react-notification-system-redux';
 import home from './home';
 
 /**
@@ -14,6 +14,9 @@ import home from './home';
  * It synchronizes the router state with redux store through
  * uni-directional flow (i.e. history -> store -> router -> components).
  *
+ * Apart from the home reducer, another reducer named as notifications from the 
+ * library 'react-notification-system-redux' has been used because we want to 
+ * show tray notification upon the successful selection of a venue.
  */
 
 const rootReducer = (history) => combineReducers({

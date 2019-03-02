@@ -4,13 +4,22 @@ import MdSearch from 'react-ionicons/lib/MdSearch';
 
 export default class SearchForm extends React.Component {
 
-    componentDidMount() {}
-
     render() {
 
-        const { dispatch, formFieldChange, searchText, searchVenues } = this.props;
-        // console.log('searchText->', searchText);
+        /**
+         * This component gets dispatch(function), formFieldChange(function), searchText(string) 
+         * and searchVenues(function) as props from the parent container. 
+         * 
+         */
 
+        const { dispatch, formFieldChange, searchText, searchVenues } = this.props;
+
+        /**
+         * This default action of the form submission is prevented and an
+         * action regarding searching the venues has been dispatched instead. 
+         * 
+         */
+        
         const handleSubmit = (e) => {
             e.preventDefault();
             dispatch(searchVenues(searchText));

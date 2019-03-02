@@ -24,13 +24,34 @@ import {
 
 class Home extends React.Component {
 
+    /**
+     * 'componentDidMount()' is invoked immediately after a component is mounted (inserted into the tree). 
+     * Initialization that requires DOM nodes should go here. If we need to load data from a remote 
+     * endpoint, this is a good place to instantiate the network request.
+     * 
+     * A request to foursquare places API is made as soon as the component mounts.
+     * Upon successful completion of the request; a list of nearby venues gets loaded.
+     * 
+     */
+
     componentDidMount() {
         const { dispatch } = this.props;
         dispatch({type: GET_NEARBY_VENUES_REQUESTS});
         dispatch(getNearbyVenues());
     }
 
-    componentWillReceiveProps(nextProps) {
+    /**
+     * **IMPORTANT** Note: This needs to be updated later.
+     * This lifecycle was previously named componentWillReceiveProps. 
+     * That name will continue to work until version 17. 
+     * UNSAFE_componentWillReceiveProps() is invoked before a mounted component receives new props.
+     * 
+     * Here, we've used this to show tray notification upon the succesful selection of a venue 
+     * as the component recieves new props from the state (successMessage).
+     * 
+     */
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
         const { dispatch } = nextProps;
         const { successMessage } = nextProps.home;
         const successNotificationOpts = {
@@ -109,12 +130,14 @@ class Home extends React.Component {
                     
                     <div className="selected-venue-container mb-5 px-4">
                         <div className="row mt-5">
-                            <SelectedVenue 
-                                selectedVenue={selectedVenue}
-                                openViewDetailsModal={openViewDetailsModal}
-                                closeViewDetailsModal={closeViewDetailsModal}
-                                showViewDetailsModal={showViewDetailsModal}
-                            />
+                            <div className="col-lg-6 col-12">
+                                <SelectedVenue 
+                                    selectedVenue={selectedVenue}
+                                    openViewDetailsModal={openViewDetailsModal}
+                                    closeViewDetailsModal={closeViewDetailsModal}
+                                    showViewDetailsModal={showViewDetailsModal}
+                                />
+                            </div>
                             <div className="col-lg-6 col-12">
                                 {
                                     selectedVenue && selectedVenue.location &&

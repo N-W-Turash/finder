@@ -8,7 +8,20 @@ export default class SearchedVenue extends React.Component {
 
     render() {
 
+        
+        /**
+         * This component gets searchedVenue(object) as a prop from the parent container. 
+         * 
+         */
+
         const { searchedVenue } = this.props;
+
+        /**
+         * For now, the name, address and category of a searched venue is shown.
+         * We've a plan to sho more information regarding the corresponding venue 
+         * in a separate page which has not been implemented yet. 
+         * 
+         */
   
         return (
            
