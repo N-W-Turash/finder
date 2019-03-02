@@ -15,6 +15,7 @@ import home from './home';
  * uni-directional flow (i.e. history -> store -> router -> components).
  *
  */
+
 const rootReducer = (history) => combineReducers({
     router: connectRouter(history),
     notifications,
