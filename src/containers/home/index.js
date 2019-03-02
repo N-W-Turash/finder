@@ -18,6 +18,8 @@ import {
     GET_SELECTED_VENUE_DATA_REQUEST,
     getSelectedVenueData,
     searchVenues,
+    viewDetailsModalOpen,
+    viewDetailsModalClose
 } from "../../modules/actions";
 
 class Home extends React.Component {
@@ -47,7 +49,7 @@ class Home extends React.Component {
     render() {
 
         const { dispatch, home } = this.props;
-        let { selectedVenue, isLoading, searchText, venuesList, isSelecting, searchedVenuesList, searchFlag } = home;
+        let { selectedVenue, isLoading, searchText, venuesList, isSelecting, searchedVenuesList, searchFlag, showViewDetailsModal } = home;
 
         const onSelectButtonClick = (e) => {
             e.preventDefault();
@@ -55,6 +57,16 @@ class Home extends React.Component {
             dispatch(selectRandomVenue(randomIndex));
             dispatch({type: GET_SELECTED_VENUE_DATA_REQUEST});
             dispatch(getSelectedVenueData(venuesList[randomIndex].id));
+        };
+
+        const closeViewDetailsModal = () => {
+            const {dispatch} = this.props;
+            dispatch(viewDetailsModalClose());
+        };
+    
+        const openViewDetailsModal = (transaction) => {
+            const {dispatch} = this.props;
+            dispatch(viewDetailsModalOpen(transaction));
         };
           
         return (
@@ -99,6 +111,9 @@ class Home extends React.Component {
                         <div className="row mt-5">
                             <SelectedVenue 
                                 selectedVenue={selectedVenue}
+                                openViewDetailsModal={openViewDetailsModal}
+                                closeViewDetailsModal={closeViewDetailsModal}
+                                showViewDetailsModal={showViewDetailsModal}
                             />
                             <div className="col-lg-6 col-12">
                                 {

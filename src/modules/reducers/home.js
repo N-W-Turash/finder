@@ -9,7 +9,9 @@ import {
     GET_SELECTED_VENUE_DATA_FAILURE,
     REMOVE_SUCCESS_MESSAGE,
     FORM_FIELD_CHANGE,
-    SEARCH_VENUES, 
+    SEARCH_VENUES,
+    OPEN_VIEW_DETAILS_MODAL,
+    CLOSE_VIEW_DETAILS_MODAL, 
 } from '../actions';
 
 const initialState = {
@@ -22,6 +24,7 @@ const initialState = {
     searchText: '',
     searchedVenuesList: [],
     searchFlag: false,
+    showViewDetailsModal: false,
 };
 
 export default (state = initialState, action) => {
@@ -121,6 +124,18 @@ export default (state = initialState, action) => {
                 searchedVenuesList: searchedVenuesList,
                 searchFlag: true,
                 selectedVenue: {}
+            };
+
+        case OPEN_VIEW_DETAILS_MODAL:
+            return {
+                ...state,
+                showViewDetailsModal: true,
+            };
+
+        case CLOSE_VIEW_DETAILS_MODAL:
+            return {
+                ...state,
+                showViewDetailsModal: false,
             };
 
         default:

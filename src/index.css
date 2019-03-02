@@ -665,6 +665,9 @@ button:focus {
   flex-wrap: wrap;
 }
 
+.view-details-section{
+  font-size: 14px;
+}
 
 
 

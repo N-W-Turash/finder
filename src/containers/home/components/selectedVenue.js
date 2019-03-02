@@ -5,12 +5,13 @@ import MdCall from 'react-ionicons/lib/MdCall';
 import Marker from '../../../assets/imgs/marker.svg';
 import Type from '../../../assets/imgs/type.svg';
 import Default from '../../../assets/imgs/default.jpg';
+import ViewSelectedVenueDetailsModal from './viewSelectedVenueDetailsModal';
 
 export default class SelectedVenue extends React.Component {
 
     render() {
 
-        const { selectedVenue } = this.props;
+        const { selectedVenue, openViewDetailsModal, closeViewDetailsModal, showViewDetailsModal } = this.props;
         // if(selectedVenue && selectedVenue.details) {
         //     console.log('selectedVenue->', selectedVenue);
         // }
@@ -24,9 +25,9 @@ export default class SelectedVenue extends React.Component {
             return src;
         }
 
-        return (
+        return [
            
-            <div className="col-lg-6 col-12">
+            <div className="col-lg-6 col-12" key={1}>
                 <div className="card custom-card mt-4">
                     <div className="card-img-holder">
                         <img src={resolvedImageSource()} className="card-img-top" alt="Venue" /> 
@@ -66,16 +67,25 @@ export default class SelectedVenue extends React.Component {
                                 }
                             </li>
                         </ul>
-                        <Link to="/unknown" className="btn btn-info">View Details</Link>
+                        <button onClick={(e) => {openViewDetailsModal()}} className="btn btn-info">View Details</button>
                     </div>
                 </div>
-            </div>
+            </div>,
+             <ViewSelectedVenueDetailsModal
+                key={2}
+                open={showViewDetailsModal}
+                onClose={closeViewDetailsModal}
+                selectedVenue={selectedVenue}
+            />
               
-        );
+        ];
     }
 }
 
 SelectedVenue.propTypes = {
     selectedVenue: PropTypes.object.isRequired,
+    openViewDetailsModal: PropTypes.func.isRequired,
+    closeViewDetailsModal: PropTypes.func.isRequired,
+    showViewDetailsModal: PropTypes.bool.isRequired
 };
 

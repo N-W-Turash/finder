@@ -18,5 +18,9 @@ export {
     FORM_FIELD_CHANGE,
     formFieldChange,
     SEARCH_VENUES,
-    searchVenues
+    searchVenues,
+    OPEN_VIEW_DETAILS_MODAL,
+    viewDetailsModalOpen,
+    CLOSE_VIEW_DETAILS_MODAL,
+    viewDetailsModalClose,
 } from './home';

@@ -25,6 +25,9 @@ export const REMOVE_SUCCESS_MESSAGE = "home/REMOVE_SUCCESS_MESSAGE";
 export const FORM_FIELD_CHANGE = "home/FORM_FIELD_CHANGE";
 export const SEARCH_VENUES = "home/SEARCH_VENUES";
 
+export const OPEN_VIEW_DETAILS_MODAL = "home/OPEN_VIEW_DETAILS_MODAL";
+export const CLOSE_VIEW_DETAILS_MODAL = "home/CLOSE_VIEW_DETAILS_MODAL";
+
 export const getNearbyVenues = () => {
 
     return dispatch => {
@@ -144,6 +147,23 @@ export const searchVenues = (searchText) => {
         }
     }
 };
+
+export function viewDetailsModalOpen(viewDetailsObj) {
+    return {
+        type: OPEN_VIEW_DETAILS_MODAL,
+        payload: {
+            viewDetailsObj
+        }
+    }
+}
+
+export function viewDetailsModalClose() {
+    return {
+        type: CLOSE_VIEW_DETAILS_MODAL
+    }
+}
+
+
 
 
 
