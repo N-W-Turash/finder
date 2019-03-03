@@ -72,7 +72,7 @@ class Home extends React.Component {
         const { dispatch, home } = this.props;
         let { selectedVenue, isLoading, searchText, venuesList, isSelecting, searchedVenuesList, searchFlag, showViewDetailsModal, errorObj } = home;
 
-        console.log('errorObject->', errorObj);
+        // console.log('errorObject->', errorObj);
 
         const onSelectButtonClick = (e) => {
             e.preventDefault();
