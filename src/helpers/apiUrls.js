@@ -22,7 +22,7 @@
 const searchApiUrl = "https://api.foursquare.com/v2/venues/search";
 const latitudeAndLongitude = "23.793727655392733,90.4045502929657";
 const categoryId = "4d4b7105d754a06374d81259";
-const versionDate = "20190201";
+const versionDate = "20190304";
 const radius = 1000;
 const intent= "checkin";
 const clientId = process.env.CLIENT_ID;

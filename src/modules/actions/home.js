@@ -129,11 +129,11 @@ export const getNearbyVenuesSuccess = (venues) => {
     }
 };
 
-export const getNearbyVenuesFailure = (response) => {
+export const getNearbyVenuesFailure = (getNearByVenuesApiError) => {
     return {
         type: GET_NEARBY_VENUES_FAILURE,
         payload : {
-            response
+            getNearByVenuesApiError
         }
     }
 };
@@ -203,11 +203,11 @@ export const getSelectedvenueDataSuccess = (details) => {
     }
 };
 
-export const getSelectedvenueDataFailure = (errorObject) => {
+export const getSelectedvenueDataFailure = (venueDetailsApiError) => {
     return {
         type: GET_SELECTED_VENUE_DATA_FAILURE,
         payload : {
-            errorObject,
+            venueDetailsApiError,
         }
     }
 };

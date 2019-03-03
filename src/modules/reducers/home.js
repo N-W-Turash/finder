@@ -17,7 +17,8 @@ import {
 const initialState = {
     venuesList: [],
     selectedVenue: {},
-    errorObj: {},
+    venueDetailsApiError: {},
+    getNearByVenuesApiError: {},
     isLoading: false,
     isSelecting: false,
     successMessage: '',
@@ -69,7 +70,8 @@ export default (state = initialState, action) => {
                 ...state,
                 venuesList: state.venuesList.concat(action.payload.venues),  
                 isLoading: false,
-                errorObj: {},
+                venueDetailsApiError: {},
+                getNearByVenuesApiError: {},
             }
 
         /**
@@ -80,6 +82,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
+                getNearByVenuesApiError: action.payload.getNearByVenuesApiError,
             }
 
         /**
@@ -130,7 +133,8 @@ export default (state = initialState, action) => {
                 isSelecting: false,
                 searchedVenuesList: [],
                 isLoading: false,
-                errorObj: {},
+                venueDetailsApiError: {},
+                getNearByVenuesApiError: {},
             }
 
         /**
@@ -143,7 +147,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 isSelecting: false,
-                errorObj: action.payload.errorObject,
+                venueDetailsApiError: action.payload.venueDetailsApiError,
             }
 
         /**
@@ -207,7 +211,8 @@ export default (state = initialState, action) => {
                 searchedVenuesList: searchedVenuesList,
                 searchFlag: true,
                 selectedVenue: {},
-                errorObj: {},
+                venueDetailsApiError: {},
+                getNearByVenuesApiError: {},
             };
 
         /**

@@ -70,9 +70,10 @@ class Home extends React.Component {
     render() {
 
         const { dispatch, home } = this.props;
-        let { selectedVenue, isLoading, searchText, venuesList, isSelecting, searchedVenuesList, searchFlag, showViewDetailsModal, errorObj } = home;
+        let { selectedVenue, isLoading, searchText, venuesList, isSelecting, 
+            searchedVenuesList, searchFlag, showViewDetailsModal, getNearByVenuesApiError, venueDetailsApiError } = home;
 
-        // console.log('errorObject->', errorObj);
+        // console.log('venueDetailsApiErrorect->', venueDetailsApiError);
 
         const onSelectButtonClick = (e) => {
             e.preventDefault();
@@ -99,29 +100,39 @@ class Home extends React.Component {
                         <MdRestaurant fontSize="60px" color="#ffffff"  style={{marginRight: '10px', marginTop: '-5px'}}/>
                         RESTAURANT FINDER
                     </h3>
-                    <div className="row justify-content-center">
-                        <div className="col-lg-6 col-md-6 col-12">
-                                <button 
-                                    type="button" 
-                                    className="btn btn-danger btn-lg btn-block"
-                                    onClick={(e) => onSelectButtonClick(e)}
-                                    disabled={isLoading || isSelecting}
-                                >
-                                    { isSelecting ? 'Selecting...' : 'Let us select one for you' }
-                                </button>
+                    {
+                        getNearByVenuesApiError && getNearByVenuesApiError.meta && getNearByVenuesApiError.meta.code ?
+
+                        <div className="alert alert-danger mt-4" role="alert">
+                            Cannot retrieve the data of nearby venues due to the occurrence of an unexpected error. So, the service is currently unavailable.
+                        </div>:
+
+                        <div>
+                            <div className="row justify-content-center">
+                                <div className="col-lg-6 col-md-6 col-12">
+                                        <button 
+                                            type="button" 
+                                            className="btn btn-danger btn-lg btn-block"
+                                            onClick={(e) => onSelectButtonClick(e)}
+                                            disabled={isLoading || isSelecting}
+                                        >
+                                            { isSelecting ? 'Selecting...' : 'Let us select one for you' }
+                                        </button>
+                                </div>
+                            </div>
+                            <h3 className="color-white mt-3 text-center fw-400">OR</h3>
+                            <SearchForm
+                                dispatch={dispatch}
+                                formFieldChange={formFieldChange}
+                                searchText={searchText}
+                                searchVenues={searchVenues}
+                            />
                         </div>
-                    </div>
-                    <h3 className="color-white mt-3 text-center fw-400">OR</h3>
-                    <SearchForm
-                        dispatch={dispatch}
-                        formFieldChange={formFieldChange}
-                        searchText={searchText}
-                        searchVenues={searchVenues}
-                    />
+                    }
                 </div>
 
                 {
-                    errorObj && errorObj.meta && errorObj.meta.code &&
+                    venueDetailsApiError && venueDetailsApiError.meta && venueDetailsApiError.meta.code &&
                     <div className="alert alert-danger mt-4" role="alert">
                         An unexpected error occurred while retrieving the data; please try again later.
                     </div>
