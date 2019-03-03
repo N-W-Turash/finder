@@ -120,7 +120,23 @@ I've used a prominent Promise based HTTP client for the browser and node.js name
 * <b>flat</b> - Take a nested Javascript object and flatten it.
  
 
-### Trade-offs/Issues/Concerns
+### Trade-offs/Issues/Concerns/Thoughts
+
+* Foursquare uses two forms of authentication: Userless auth and user        auth. I have used the userless auth. This is suitable for server side      applications. To make a userless request, I needed to specify my       
+  consumer key’s Client ID and Secret instead of an auth token in the request URL.
+  So, an API might look like these:
+
+    ```
+    https://api.foursquare.com/v2/venues/search?ll=40.7,-74%client_id=CLIENT_ID&client_secret=CLIENT_SECRET&v=YYYYMMDD`
+    ```
+    As our app is just a client side app I needed to use an HTTP client to send request to the Foursquare places API directly from the app which means the client ID and client secret is visible as they're used as  parameters. So, both of them are visible to anyone. Yet I have kept them in a .env file to create a perception of better practise. For that I needed to use a webpack plugin called <b>dotenv-webpack</b> and for enabling that plugin I ejected the configuration related files of this project. If I got more time, I could have create a backend for the app. 
+    <br><br>
+
+* Initially the procedure to make request to the Foursquare places API      started when a user clicks on the `button` to get a randomly selected venue. After successfully retrieving a list of nearby venues a random integer would be generated within the range of 0 (inclusive) and length of the array (exclusive) of the retrieved venues as response. Then it would select an element (an object containing information regarding a specific venue) and send another request to Foursquare API to get detailes of that specific venue. After successful retrieval of that information, it used to get dispalyed to the user. 
+
+    Later I changed the procedure. Now, an initial API call occurs as soon as the App component mounts to the DOM tree and upon successful completion of the request a list of venues get stored in thye state of the app. So, both the random selection and search venue feature can utilizes that initially retrieved list. 
+
+    If I got more time I would create seperate branches to depict both of the procedures. 
 
 
 
