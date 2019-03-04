@@ -1,3 +1,2 @@
-export { 
-    Router,
-} from './router';
+export { Router } from './router';
+export { VenueMap } from './venueMap';

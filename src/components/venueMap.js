@@ -9,7 +9,7 @@ import Marker from 'pigeon-marker';
  * 
  */
 
-export default class VenueMap extends React.Component {
+export class VenueMap extends React.Component {
 
     render() {
 

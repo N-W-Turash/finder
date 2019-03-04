@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Notifications from 'react-notification-system-redux';
 import PropTypes from 'prop-types';
 import Home from "../home";
+import SearchedVenueDetails from "../searchedVenueDetails";
 import NotFound from "../404";
 import { Router } from "../../components";
 
@@ -36,6 +37,10 @@ class App extends React.Component {
             {
                 path: '/',
                 component: Home,
+            },
+            {
+                path: '/venue/:id',
+                component: SearchedVenueDetails,
             },
             {
                 path: '*',

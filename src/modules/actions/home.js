@@ -39,9 +39,9 @@ export const SELECT_A_RANDOM_VENUE = "home/SELECT_A_RANDOM_VENUE";
  * 
  */
 
-export const GET_SELECTED_VENUE_DATA_REQUEST = "home/GET_SELECTED_VENUE_DATA_REQUEST";
-export const GET_SELECTED_VENUE_DATA_SUCCESS = "home/GET_SELECTED_VENUE_DATA_SUCCESS";
-export const GET_SELECTED_VENUE_DATA_FAILURE = "home/GET_SELECTED_VENUE_DATA_FAILURE";
+export const GET_VENUE_DETAILS_REQUEST = "home/GET_VENUE_DETAILS_REQUEST";
+export const GET_VENUE_DETAILS_SUCCESS = "home/GET_VENUE_DETAILS_SUCCESS";
+export const GET_VENUE_DETAILS_FAILURE = "home/GET_VENUE_DETAILS_FAILURE";
 
 /**
  * Action type to remove the success message depicting successful selection of a venue.
@@ -129,11 +129,11 @@ export const getNearbyVenuesSuccess = (venues) => {
     }
 };
 
-export const getNearbyVenuesFailure = (getNearByVenuesApiError) => {
+export const getNearbyVenuesFailure = (response) => {
     return {
         type: GET_NEARBY_VENUES_FAILURE,
         payload : {
-            getNearByVenuesApiError
+            response
         }
     }
 };
@@ -170,19 +170,19 @@ export const selectRandomVenue = (selectedIndex) => {
  * 
  */
 
-export const getSelectedVenueData = (venueId) => {
+export const getVenueDetails = (venueId, parentObject) => {
 
     return dispatch => {
         return axios.get(getSelectedVenueDetailsUrl(venueId))
             .then(res => {
                 let details = res.data.response;
-                dispatch(getSelectedvenueDataSuccess(details));
+                dispatch(getVenueDetailsSuccess(details, parentObject));
             })
             .catch((error) => {
 
                 if (error.response) {
                     let errors = error.response.data;
-                    dispatch(getSelectedvenueDataFailure(errors));
+                    dispatch(getVenueDetailsFailure(errors));
                 }
                 else if (error.request) {
                     console.log(error.request);
@@ -194,18 +194,19 @@ export const getSelectedVenueData = (venueId) => {
     }
 };
 
-export const getSelectedvenueDataSuccess = (details) => {
+export const getVenueDetailsSuccess = (details, parentObject) => {
     return {
-        type: GET_SELECTED_VENUE_DATA_SUCCESS,
+        type: GET_VENUE_DETAILS_SUCCESS,
         payload : {
             details,
+            parentObject,
         }
     }
 };
 
-export const getSelectedvenueDataFailure = (venueDetailsApiError) => {
+export const getVenueDetailsFailure = (venueDetailsApiError) => {
     return {
-        type: GET_SELECTED_VENUE_DATA_FAILURE,
+        type: GET_VENUE_DETAILS_FAILURE,
         payload : {
             venueDetailsApiError,
         }

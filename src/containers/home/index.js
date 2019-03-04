@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 import MdRestaurant from 'react-ionicons/lib/MdRestaurant';
 import IosRefresh from 'react-ionicons/lib/IosRefresh';
 import { success } from "react-notification-system-redux";
+import { VenueMap } from '../../components/';
 import SearchForm from './components/searchForm';
 import SelectedVenue from './components/selectedVenue';
-import VenueMap from './components/venueMap';
 import SearchedVenue from './components/searchedVenue';
 import { 
     getNearbyVenues, 
@@ -15,11 +15,11 @@ import {
     removeSuccessMessage ,
     formFieldChange,
     selectRandomVenue,
-    GET_SELECTED_VENUE_DATA_REQUEST,
-    getSelectedVenueData,
+    GET_VENUE_DETAILS_REQUEST,
+    getVenueDetails,
     searchVenues,
     viewDetailsModalOpen,
-    viewDetailsModalClose
+    viewDetailsModalClose,
 } from "../../modules/actions";
 
 class Home extends React.Component {
@@ -73,14 +73,12 @@ class Home extends React.Component {
         let { selectedVenue, isLoading, searchText, venuesList, isSelecting, 
             searchedVenuesList, searchFlag, showViewDetailsModal, getNearByVenuesApiError, venueDetailsApiError } = home;
 
-        // console.log('venueDetailsApiErrorect->', venueDetailsApiError);
-
         const onSelectButtonClick = (e) => {
             e.preventDefault();
             let randomIndex = Math.floor(Math.random()*venuesList.length);
             dispatch(selectRandomVenue(randomIndex));
-            dispatch({type: GET_SELECTED_VENUE_DATA_REQUEST});
-            dispatch(getSelectedVenueData(venuesList[randomIndex].id));
+            dispatch({type: GET_VENUE_DETAILS_REQUEST});
+            dispatch(getVenueDetails(venuesList[randomIndex].id, 'selectedVenue'));
         };
 
         const closeViewDetailsModal = () => {
@@ -148,7 +146,7 @@ class Home extends React.Component {
                 {
                     !isSelecting && selectedVenue && selectedVenue.details &&
                     
-                    <div className="selected-venue-container mb-5 px-4">
+                    <div className="venue-container mb-5 px-4">
                         <div className="row mt-5">
                             <div className="col-lg-6 col-12">
                                 <SelectedVenue 

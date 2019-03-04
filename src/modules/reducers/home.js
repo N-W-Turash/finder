@@ -4,9 +4,9 @@ import {
     GET_NEARBY_VENUES_SUCCESS,
     GET_NEARBY_VENUES_FAILURE,
     SELECT_A_RANDOM_VENUE,
-    GET_SELECTED_VENUE_DATA_REQUEST,
-    GET_SELECTED_VENUE_DATA_SUCCESS,
-    GET_SELECTED_VENUE_DATA_FAILURE,
+    GET_VENUE_DETAILS_REQUEST,
+    GET_VENUE_DETAILS_SUCCESS,
+    GET_VENUE_DETAILS_FAILURE,
     REMOVE_SUCCESS_MESSAGE,
     FORM_FIELD_CHANGE,
     SEARCH_VENUES,
@@ -17,6 +17,7 @@ import {
 const initialState = {
     venuesList: [],
     selectedVenue: {},
+    searchedVenueDetails: {},
     venueDetailsApiError: {},
     getNearByVenuesApiError: {},
     isLoading: false,
@@ -26,6 +27,7 @@ const initialState = {
     searchedVenuesList: [],
     searchFlag: false,
     showViewDetailsModal: false,
+    isVenuDetailsDataLoading: false,
 };
 
 /**
@@ -101,18 +103,18 @@ export default (state = initialState, action) => {
             }
 
         /**
-         * When the action with the type 'GET_SELECTED_VENUE_DATA_REQUEST' is dispatched.
+         * When the action with the type 'GET_VENUE_DETAILS_REQUEST' is dispatched.
          * Returns just the new state.
          */
 
-        case GET_SELECTED_VENUE_DATA_REQUEST:
-            
+        case GET_VENUE_DETAILS_REQUEST:
             return {
                 ...state,
+                isVenuDetailsDataLoading: true,
             }
 
         /**
-         * When the action with the type 'GET_SELECTED_VENUE_DATA_SUCCESS' is dispatched.
+         * When the action with the type 'GET_VENUE_DETAILS_SUCCESS' is dispatched.
          * Returns the new state with 'selectedVenue' changed as a new object called 
          * 'details' gets appended to it as a property which gets provided by the action's
          * payload and along with changed 'successMessage' ('' to 'A venue..'), 
@@ -121,33 +123,45 @@ export default (state = initialState, action) => {
          * 
          */
 
-        case GET_SELECTED_VENUE_DATA_SUCCESS:
+        case GET_VENUE_DETAILS_SUCCESS:
+            const { parentObject, details } = action.payload;
+            let venueObject;
+
+            if(parentObject === 'selectedVenue') {
+                venueObject = {
+                    ...state.selectedVenue,
+                    details: details,
+                };
+            }
+
+            if(parentObject === 'searchedVenueDetails') {
+                venueObject = details;
+            }
             
             return {
                 ...state,
-                selectedVenue: {
-                    ...state.selectedVenue,
-                    details: action.payload.details,
-                },
+                [parentObject]: venueObject,
                 successMessage: 'A venue has been selected for you!',
                 isSelecting: false,
                 searchedVenuesList: [],
                 isLoading: false,
                 venueDetailsApiError: {},
                 getNearByVenuesApiError: {},
+                isVenuDetailsDataLoading: false,
             }
 
         /**
-         * When the action with the type 'GET_SELECTED_VENUE_DATA_FAILURE' is dispatched.
+         * When the action with the type 'GET_VENUE_DETAILS_FAILURE' is dispatched.
          * Returns the new state with 'isLoading' and 'isSelecting' (both true to false). 
          */
 
-        case GET_SELECTED_VENUE_DATA_FAILURE:
+        case GET_VENUE_DETAILS_FAILURE:
             return {
                 ...state,
                 isLoading: false,
                 isSelecting: false,
                 venueDetailsApiError: action.payload.venueDetailsApiError,
+                isVenuDetailsDataLoading: false,
             }
 
         /**
