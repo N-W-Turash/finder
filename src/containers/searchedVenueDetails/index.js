@@ -4,15 +4,11 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import IosRefresh from 'react-ionicons/lib/IosRefresh';
-import MdCall from 'react-ionicons/lib/MdCall';
-import Marker from '../../assets/imgs/marker.svg';
-import Type from '../../assets/imgs/type.svg';
-import Default from '../../assets/imgs/default.jpg';
 import { 
     GET_VENUE_DETAILS_REQUEST,
     getVenueDetails,
 } from '../../modules/actions';
-import { VenueMap } from '../../components/';
+import { Venue, VenueMap } from '../../components/';
 
 class SearchedVenueDetails extends React.Component {
 
@@ -26,10 +22,23 @@ class SearchedVenueDetails extends React.Component {
 
         const { home } = this.props;
         const { searchedVenueDetails, isVenuDetailsDataLoading } = home;
-        console.log('searchedVenueDetails->', searchedVenueDetails);
+        let venueData = {};
+
+        if(searchedVenueDetails.venue) {
+            let { venue } = searchedVenueDetails;
+            venueData = {
+                name: venue.name ? venue.name : "N/A",
+                description: venue.description ? venue.description : "Description Not Available",
+                address: venue.location && venue.location.address ? venue.location.address : "Dhaka (Details not availbale)",
+                categoryName: venue.categories && venue.categories[0].name ? venue.categories[0].name: "N/A",
+                phone: venue.contact && venue.contact.phone ? venue.contact.phone : "N/A",
+                imgSrc: venue.bestPhoto ?  `${venue.bestPhoto.prefix}500x300${venue.bestPhoto.suffix}` : false,
+            }
+        }
+
         return (
            <section className="container">
-                 {
+                {
                     isVenuDetailsDataLoading ?
 
                     <div className="spinner-container">
@@ -39,57 +48,13 @@ class SearchedVenueDetails extends React.Component {
                     <div className="venue-container mb-5 px-4">
                         <div className="row mt-5">
                             <div className="col-lg-6 col-12">
-                                <div className="card custom-card mt-4" key={1}>
-                                    <div className="card-img-holder">
-                                        <img src={Default} className="card-img-top" alt="Venue" /> 
-                                    </div>
-                                    <div className="card-body fs-2">
-                                        <h5 className="card-title uppercase fw-400 ls-title-">
-                                            { 
-                                                searchedVenueDetails.venue && searchedVenueDetails.venue.name && 
-                                                searchedVenueDetails.venue.name
-                                            }
-                                        </h5>
-                                        {
-                                            searchedVenueDetails && searchedVenueDetails.venue && searchedVenueDetails.venue.description &&
-                                            <p>{searchedVenueDetails.venue.description}</p> 
-                                        }
-                                        <ul className="list-group custom-list-group list-group-flush mb-3">
-                                            <li className="list-group-item">
-                                                <img src={Marker} alt="address" className="svg-icon-left"/>
-                                                {
-                                                    searchedVenueDetails && searchedVenueDetails.venue && searchedVenueDetails.venue.location && searchedVenueDetails.venue.location && searchedVenueDetails.venue.location.address ?                                              
-                                                    `${searchedVenueDetails.venue.location.address}, ${searchedVenueDetails.venue.location.city}` :                                               
-                                                    `Dhaka (Details not availbale)`
-                                                }
-                                            </li>
-                                            <li className="list-group-item">
-                                                <img src={Type} alt="type" className="svg-icon-left"/>
-                                                {
-                                                    searchedVenueDetails.venue &&
-                                                    searchedVenueDetails.venue.categories &&
-                                                    searchedVenueDetails.venue.categories[0].name ?
-                                                    searchedVenueDetails.venue.categories[0].name :
-                                                    `N/A`
-                                                }
-                                            </li>
-                                            <li className="list-group-item">
-                                                <MdCall fontSize="20px" color="#ffffff"  style={{marginRight: '10px', marginTop: '-5px'}}/>
-                                                {
-                                                    searchedVenueDetails.venue &&  searchedVenueDetails.venue.contact &&
-                                                    searchedVenueDetails.venue.contact.phone ? 
-                                                    searchedVenueDetails.venue.contact.phone : 
-                                                    'N/A'
-                                                }
-                                            </li>
-                                        </ul>
-                                        {/* <button onClick={(e) => {openViewDetailsModal()}} className="btn btn-info">View Details</button> */}
-                                    </div>
-                                </div>
+                                <Venue
+                                    venueData={venueData}
+                                 />
                             </div>
                             <div className="col-lg-6 col-12">
                                 {
-                                    searchedVenueDetails && searchedVenueDetails.venue && searchedVenueDetails.venue.location &&
+                                    searchedVenueDetails.venue && searchedVenueDetails.venue.location &&
                                     <div className="selected-venue-map-container mt-4">
                                         {
                                             <VenueMap
@@ -101,9 +66,8 @@ class SearchedVenueDetails extends React.Component {
                             </div>
                         </div>
                     </div>
-
-
                 }
+                <Link to="/" className="btn btn-info">Go Back To Home</Link>
            </section>
         );
     }

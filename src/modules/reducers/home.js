@@ -70,7 +70,7 @@ export default (state = initialState, action) => {
         case GET_NEARBY_VENUES_SUCCESS:
             return {
                 ...state,
-                venuesList: state.venuesList.concat(action.payload.venues),  
+                venuesList: action.payload.venues,  
                 isLoading: false,
                 venueDetailsApiError: {},
                 getNearByVenuesApiError: {},
@@ -121,17 +121,20 @@ export default (state = initialState, action) => {
          * 'isSelecting' (true to false), 'searchedVenuesList' (to []),
          * isLoading (true to false).
          * 
+         * >>>>>> NEED TO WRITE THE UPDATING
+         * 
          */
 
         case GET_VENUE_DETAILS_SUCCESS:
             const { parentObject, details } = action.payload;
-            let venueObject;
+            let venueObject = {}, selectFlag = false;
 
             if(parentObject === 'selectedVenue') {
                 venueObject = {
                     ...state.selectedVenue,
                     details: details,
                 };
+                selectFlag = true;
             }
 
             if(parentObject === 'searchedVenueDetails') {
@@ -141,9 +144,8 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 [parentObject]: venueObject,
-                successMessage: 'A venue has been selected for you!',
+                successMessage: selectFlag ? 'A venue has been selected for you!' : state.successMessage,
                 isSelecting: false,
-                searchedVenuesList: [],
                 isLoading: false,
                 venueDetailsApiError: {},
                 getNearByVenuesApiError: {},
@@ -206,12 +208,12 @@ export default (state = initialState, action) => {
         case SEARCH_VENUES:
             let newVenueList = state.venuesList.concat([]);
             let searchedVenuesList = [];
-            newVenueList.forEach((venue, index) => {
+            newVenueList.forEach((venue) => {
                 searchedVenuesList.push(flatten(venue));
             });
           
             searchedVenuesList= searchedVenuesList.filter((venue, index) => {
-                let text = action.payload.searchText;
+                let text = action.payload.searchText.replace(/\W/g, '');
                 let regex = new RegExp(text.trim(), 'ig');
                 if(text.trim() !== "") {
                     if(regex.test(venue['name']) || regex.test(venue['location.address']) || regex.test(venue['categories.0.name'])) {
@@ -220,6 +222,7 @@ export default (state = initialState, action) => {
                 }
                 return 0;
             });
+           
             return {
                 ...state,
                 searchedVenuesList: searchedVenuesList,

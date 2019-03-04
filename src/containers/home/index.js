@@ -67,6 +67,11 @@ class Home extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        const { dispatch } = this.props;
+        dispatch(removeSuccessMessage());
+    }
+
     render() {
 
         const { dispatch, home } = this.props;
