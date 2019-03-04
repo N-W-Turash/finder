@@ -35,7 +35,7 @@ export default class SearchForm extends React.Component {
                             className="form-control mb-2" 
                             name="searchText"
                             value={searchText}
-                            placeholder="Search nearby Restaurants"
+                            placeholder="Search by name / location / category"
                             onChange={(e) => dispatch(formFieldChange(e.target.name, e.target.value))}
                         />
                     </div>

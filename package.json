@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "N-W-Turash <turash.sust@gmail.com>",
-  "homepage": "https://n-w-turash.github.io/finder",
+  "homepage": "https://n-w-turash.github.io",
   "dependencies": {
     "@babel/core": "7.2.2",
     "@svgr/webpack": "4.1.0",
@@ -81,9 +81,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "test": "node scripts/test.js"
   },
   "eslintConfig": {
     "extends": "react-app"
