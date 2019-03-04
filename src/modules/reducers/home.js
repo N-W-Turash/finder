@@ -116,12 +116,9 @@ export default (state = initialState, action) => {
         /**
          * When the action with the type 'GET_VENUE_DETAILS_SUCCESS' is dispatched.
          * Returns the new state with 'selectedVenue' changed as a new object called 
-         * 'details' gets appended to it as a property which gets provided by the action's
-         * payload and along with changed 'successMessage' ('' to 'A venue..'), 
-         * 'isSelecting' (true to false), 'searchedVenuesList' (to []),
-         * isLoading (true to false).
-         * 
-         * >>>>>> NEED TO WRITE THE UPDATING
+         * 'details' gets appended to it as a property or 'searchedVenueDetails' where the retrieved 
+         * 'details'object gets assigned to. This dynamic technique gets provided by the action's
+         * 'parentObject' payload.
          * 
          */
 
@@ -213,6 +210,9 @@ export default (state = initialState, action) => {
             });
           
             searchedVenuesList= searchedVenuesList.filter((venue, index) => {
+                /* 
+                * Non alphanumeric characters from the search text get removed.
+                */
                 let text = action.payload.searchText.replace(/\W/g, '');
                 let regex = new RegExp(text.trim(), 'ig');
                 if(text.trim() !== "") {

@@ -3,3 +3,7 @@ export {
     getSelectedVenueDetailsUrl,
 } from './apiUrls';
 
+export { 
+    resolveVenueData,
+} from './resolveVenueData';
+

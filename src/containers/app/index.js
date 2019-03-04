@@ -73,7 +73,7 @@ class App extends React.Component {
  */
 
 App.propTypes = {
-    notifications: PropTypes.array
+    notifications: PropTypes.array,
 };
 
 /**

@@ -9,6 +9,7 @@ import {
     getVenueDetails,
 } from '../../modules/actions';
 import { Venue, VenueMap } from '../../components/';
+import { resolveVenueData } from '../../helpers';
 
 class SearchedVenueDetails extends React.Component {
 
@@ -26,14 +27,7 @@ class SearchedVenueDetails extends React.Component {
 
         if(searchedVenueDetails.venue) {
             let { venue } = searchedVenueDetails;
-            venueData = {
-                name: venue.name ? venue.name : "N/A",
-                description: venue.description ? venue.description : "Description Not Available",
-                address: venue.location && venue.location.address ? venue.location.address : "Dhaka (Details not availbale)",
-                categoryName: venue.categories && venue.categories[0].name ? venue.categories[0].name: "N/A",
-                phone: venue.contact && venue.contact.phone ? venue.contact.phone : "N/A",
-                imgSrc: venue.bestPhoto ?  `${venue.bestPhoto.prefix}500x300${venue.bestPhoto.suffix}` : false,
-            }
+            venueData = venue;
         }
 
         return (
@@ -49,7 +43,7 @@ class SearchedVenueDetails extends React.Component {
                         <div className="row mt-5">
                             <div className="col-lg-6 col-12">
                                 <Venue
-                                    venueData={venueData}
+                                    venueData={resolveVenueData(venueData)}
                                  />
                             </div>
                             <div className="col-lg-6 col-12">

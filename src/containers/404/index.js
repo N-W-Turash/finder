@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 
 export default class NotFound extends React.Component {
 
+    /**
+     * In this app there are only two allowed route paths: "/" and "/venue/:venueId".
+     * Aparth from those, all other route paths wil render this component.
+     * 
+     */
+
     render(){
 
         return (

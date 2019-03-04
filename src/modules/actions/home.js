@@ -158,15 +158,15 @@ export const selectRandomVenue = (selectedIndex) => {
 };
 
 /**
- * 'getSelectedVenueData' is an asynchronous action creator to handle the api calls to foursquare
+ * 'getVenueDetails' is an asynchronous action creator to handle the api calls to foursquare
  * places API to get the details of a venue.
  * 
- * If the request completes successfully; it dispatches the 'getSelectedvenueDataSuccess' action 
+ * If the request completes successfully; it dispatches the 'getVenueDetailsSuccess' action 
  * creator with the retrieved data as the payload which will be processed by the 
  * corresponding reducer. 
  * 
- * If the request fails; it dispatches the 'getSelectedvenueDataFailure' action creator with 
- * the error object as the payload which will be processed by the corresponding reducer. 
+ * If the request fails; it dispatches the 'getVenueDetailsFailure' action creator with 
+ * the errors object as the payload which will be processed by the corresponding reducer. 
  * 
  */
 

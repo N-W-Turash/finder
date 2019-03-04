@@ -67,17 +67,23 @@ class Home extends React.Component {
         }
     }
 
-    componentWillUnmount() {
-        const { dispatch } = this.props;
-        dispatch(removeSuccessMessage());
-    }
-
     render() {
+
+        /**
+         * gets dispatch function and 'home' state as props.
+         * 
+         */
 
         const { dispatch, home } = this.props;
         let { selectedVenue, isLoading, searchText, venuesList, isSelecting, 
             searchedVenuesList, searchFlag, showViewDetailsModal, getNearByVenuesApiError, venueDetailsApiError } = home;
-
+        
+        /**
+         * Gets a random integer between 0 (inclusive) and length of the retrieved array of venues (exclusive).
+         * Dispatches necessary actions to select a venue from the retrieved list and then loads detailed data of it.  
+         * 
+         */
+        
         const onSelectButtonClick = (e) => {
             e.preventDefault();
             let randomIndex = Math.floor(Math.random()*venuesList.length);

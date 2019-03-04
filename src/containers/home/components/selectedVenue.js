@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ViewSelectedVenueDetailsModal from './viewSelectedVenueDetailsModal';
 import { Venue } from '../../../components/';
-
+import { resolveVenueData } from '../../../helpers';
 
 export default class SelectedVenue extends React.Component {
 
@@ -19,14 +19,7 @@ export default class SelectedVenue extends React.Component {
 
         if(selectedVenue.details && selectedVenue.details.venue) {
             let { details: { venue } } = selectedVenue;
-            venueData = {
-                name: selectedVenue.name ? selectedVenue.name : "N/A",
-                description: venue.description ? venue.description : "Description Not Available",
-                address: venue.location && venue.location.address ? venue.location.address : "Dhaka (Details not availbale)",
-                categoryName: venue.categories && venue.categories[0].name ? venue.categories[0].name: "N/A",
-                phone: venue.contact && venue.contact.phone ? venue.contact.phone : "N/A",
-                imgSrc: venue.bestPhoto ?  `${venue.bestPhoto.prefix}500x300${venue.bestPhoto.suffix}` : false,
-            }
+            venueData = venue;
         }
 
         /**
@@ -39,7 +32,7 @@ export default class SelectedVenue extends React.Component {
            
             <Venue
                 key={1}
-                venueData={venueData}
+                venueData={resolveVenueData(venueData)}
             />,
             <button onClick={(e) => {openViewDetailsModal()}} className="btn btn-info mb-4" key={2}>View Details</button>,
              <ViewSelectedVenueDetailsModal
