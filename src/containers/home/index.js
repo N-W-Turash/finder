@@ -104,7 +104,7 @@ class Home extends React.Component {
           
         return (
             <section className="container">
-                <div className="main-section" key={1}>
+                <div className="main-section">
                     <h3 className="mb-2 fw-400 color-white text-center ls-title">
                         <MdRestaurant fontSize="60px" color="#ffffff"  style={{marginRight: '10px', marginTop: '-5px'}}/>
                         FINDER
@@ -184,10 +184,10 @@ class Home extends React.Component {
                             </div>
                         </div>
                     </div>
-                }
+                } 
 
                 {
-                    !selectedVenue.id && searchedVenuesList.length  && 
+                    !selectedVenue.id && searchedVenuesList.length  ?
                     <div className="seareched-venues-container mb-5 px-4">
                         <div className="row row-flex">
                             {
@@ -202,8 +202,9 @@ class Home extends React.Component {
                                 })
                             }
                         </div>
-                    </div> 
-                }
+                    </div> :
+                    undefined
+                } 
 
                 {
                     !selectedVenue.id && !searchedVenuesList.length && searchFlag &&

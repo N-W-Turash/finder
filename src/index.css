@@ -11,6 +11,7 @@ body {
   background-size: cover;
   font-weight: 400;
   line-height: 1.45;
+  min-height: 100vh;
 }
 
 p {margin-bottom: 1.3em;}
