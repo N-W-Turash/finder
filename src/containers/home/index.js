@@ -105,10 +105,13 @@ class Home extends React.Component {
         return (
             <section className="container">
                 <div className="main-section" key={1}>
-                    <h3 className="mb-3 fw-400 color-white text-center ls-title">
+                    <h3 className="mb-2 fw-400 color-white text-center ls-title">
                         <MdRestaurant fontSize="60px" color="#ffffff"  style={{marginRight: '10px', marginTop: '-5px'}}/>
-                        RESTAURANT FINDER
+                        FINDER
                     </h3>
+                    <h4 className="color-white text-center mt-0 mb-4">
+                        Find Appropriate Venue For having Team Party Near Ahmed Tower, Banani
+                    </h4>
                     {
                         getNearByVenuesApiError && getNearByVenuesApiError.meta && getNearByVenuesApiError.meta.code ?
 
