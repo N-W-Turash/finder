@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-export default class NotFound extends React.Component {
+class NotFound extends React.Component {
 
     /**
      * In this app there are only two allowed route paths: "/" and "/venue/:venueId".
@@ -26,4 +26,13 @@ export default class NotFound extends React.Component {
         );
     }
 }
+
+
+ /**
+  * 09/03/2019
+  *  Added withRouter HOC to fix an unusual behavior related with browser back button.
+  */
+
+export default withRouter(NotFound);
+
 

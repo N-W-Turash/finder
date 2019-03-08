@@ -101,7 +101,7 @@ class Home extends React.Component {
             const {dispatch} = this.props;
             dispatch(viewDetailsModalOpen());
         };
-          
+
         return (
             <section className="container">
                 <div className="main-section">
@@ -221,6 +221,7 @@ class Home extends React.Component {
 
 Home.propTypes = {
     dispatch: PropTypes.func.isRequired,
+    home:  PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
