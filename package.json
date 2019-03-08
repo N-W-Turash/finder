@@ -1,7 +1,7 @@
 {
   "name": "team-party-restaurant-finder",
   "description": "A simple web app to find appropriate restaurant within a limited distance for having team party.",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "author": "N-W-Turash <turash.sust@gmail.com>",
   "homepage": "https://n-w-turash.github.io",
