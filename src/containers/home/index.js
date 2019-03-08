@@ -44,10 +44,10 @@ class Home extends React.Component {
      * **IMPORTANT** Note: This needs to be updated later.
      * This lifecycle was previously named componentWillReceiveProps. 
      * That name will continue to work until version 17. 
-     * UNSAFE_componentWillReceiveProps() is invoked before a mounted component receives new props.
+     * The function UNSAFE_componentWillReceiveProps is invoked before a mounted component receives new props.
      * 
      * Here, we've used this to show tray notification upon the succesful selection of a venue 
-     * as the component recieves new props from the state (successMessage).
+     * as the component recieves new prop (successMessage) from the state.
      * 
      */
 
@@ -92,10 +92,20 @@ class Home extends React.Component {
             dispatch(getVenueDetails(venuesList[randomIndex].id, 'selectedVenue'));
         };
 
+        /**
+         * Function where the action creator related with opening the modal displaying details information of a venue.
+         * 
+         */
+
         const closeViewDetailsModal = () => {
             const {dispatch} = this.props;
             dispatch(viewDetailsModalClose());
         };
+
+        /**
+         * Function where the action creator related with opening the modal displaying details information of a venue.
+         * 
+         */
     
         const openViewDetailsModal = () => {
             const {dispatch} = this.props;
