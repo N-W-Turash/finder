@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import store, { history } from './modules/store';
 import * as $ from 'jquery'
@@ -28,6 +28,13 @@ window.Popper = Popper;
 
 const target = document.querySelector('#root');
 
+
+/**
+ * For providing context to the components wrapped by react-redux's connect().
+ * 
+ */
+export const StoreContext = ReactReduxContext;
+
 /**
  * React Redux provides <Provider />, which makes the Redux store available to the rest of the app,.
  * Wrapped react-router v4 routing with ConnectedRouter and passed the history object as a prop.
@@ -38,11 +45,11 @@ const target = document.querySelector('#root');
  */
 
 render(
-    <Provider store={store}>
-        <ConnectedRouter history={history}>
+    <Provider store={store} context={StoreContext}>
+        <ConnectedRouter history={history} context={StoreContext}>
             <div>
-                <App />
-            </div>
+                <App/>
+            </div> 
         </ConnectedRouter>
     </Provider>,
     target

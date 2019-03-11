@@ -21,8 +21,6 @@ export default class SearchedVenue extends React.Component {
          * in a separate page which has not been implemented yet. 
          * 
          */
-
-         console.log('props SVC->', this.props);
   
         return (
            
