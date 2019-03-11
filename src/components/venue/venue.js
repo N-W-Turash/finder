@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MdCall from 'react-ionicons/lib/MdCall';
-import Marker from '../assets/imgs/marker.svg';
-import Type from '../assets/imgs/type.svg';
-import Default from '../assets/imgs/default.jpg';
-// import ViewSelectedVenueDetailsModal from './viewSelectedVenueDetailsModal';
+import Marker from '../../assets/imgs/marker.svg';
+import Type from '../../assets/imgs/type.svg';
+import Default from '../../assets/imgs/default.jpg';
 
 export class Venue extends React.Component {
 

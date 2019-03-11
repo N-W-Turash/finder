@@ -8,7 +8,7 @@ import {
     GET_VENUE_DETAILS_REQUEST,
     getVenueDetails,
 } from '../../modules/actions';
-import { Venue, VenueMap } from '../../components/';
+import { Venue, VenueMap, Header } from '../../components/';
 import { resolveVenueData } from '../../helpers';
 
 class SearchedVenueDetails extends React.Component {
@@ -32,6 +32,9 @@ class SearchedVenueDetails extends React.Component {
 
         return (
            <section className="container">
+
+                <Header/>
+                
                 {
                     isVenuDetailsDataLoading ?
 

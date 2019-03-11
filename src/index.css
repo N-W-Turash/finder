@@ -476,47 +476,16 @@ button:focus {
   border-radius: 3px;
 }
 
-.icon-menu{
-    color: #bebebe;
-}
-
 .alert-danger {
   background-color: #f2dede;
   border-color: #ebcccc;
   color: #a94442;
 }
 
-.gtr-nav-dropdown-menu{
-  top: 35px;
-}
-
-.three-px-below{
-  top: 3px;
-}
-
 @media(max-width: 767px){
-  .forgot-password-link{
-    margin-top: .75rem;
-    display: block;
-  }
   .btn-change{
     margin-top: 1rem;
   }
-}
-
-.ReactTable .rt-tbody .rt-td {
-  text-align: center;
-  font-size: 14px;
-}
-
-.gtr-spinner {
-  border: 8px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 8px solid #252161;
-  width: 80px;
-  height: 80px;
-  -webkit-animation: spin 1s linear infinite; /* Safari */
-  animation: spin 1s linear infinite;
 }
 
 /* Safari */
@@ -544,29 +513,6 @@ button:focus {
 
 .react-responsive-modal-close-icon{
   top: 27px;
-}
-
-.user-data-container{
-  border-bottom: 1px solid #6A6A6A;
-  padding-bottom: 0;
-  margin-bottom: 15px;
-}
-
-.user-data-container p{
-  margin-bottom: 10px;
-}
-
-.gtr-table th, .gtr-table td {
-  border: 1px solid #999b9c;
-  font-size: 14px;
-}
-
-.gtr-table thead th {
-  border-bottom: 1px solid #999b9c!important;
-}
-
-.transaction-details-section{
-    font-size: 14px;
 }
 
 @media(min-width: 576px) and (max-width: 767px) {
@@ -598,17 +544,7 @@ button:focus {
   min-height: 100vh;
 }
 
-#bg {
-  position: fixed; 
-  top: 0; 
-  left: 0; 
-
-  /* Preserve aspet ratio */
-  min-width: 100%;
-  min-height: 100%;
-}
-
-.main-section, .custom-list-group .list-group-item, .not-found-container, .venue-container, .well {
+.main-section, .custom-list-group .list-group-item, .not-found-container, .venue-container, .well, .header-section {
   background-color: rgba(0, 0, 0, .4);
 }
 
@@ -618,6 +554,10 @@ button:focus {
 
 .main-section {
   padding: 5px 30px 15px 30px
+}
+
+.header-section {
+  padding: 5px 10px 5px 10px;
 }
 
 .ls-title {

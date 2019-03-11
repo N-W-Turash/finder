@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import MdRestaurant from 'react-ionicons/lib/MdRestaurant';
 import IosRefresh from 'react-ionicons/lib/IosRefresh';
 import { success } from "react-notification-system-redux";
-import { VenueMap } from '../../components/';
+import { VenueMap, Header } from '../../components/';
 import SearchForm from './components/searchForm';
 import SelectedVenue from './components/selectedVenue';
 import SearchedVenue from './components/searchedVenue';
@@ -114,14 +113,10 @@ class Home extends React.Component {
 
         return (
             <section className="container">
+
+                <Header />
+
                 <div className="main-section">
-                    <h3 className="mb-2 fw-400 color-white text-center ls-title">
-                        <MdRestaurant fontSize="60px" color="#ffffff"  style={{marginRight: '10px', marginTop: '-5px'}}/>
-                        FINDER
-                    </h3>
-                    <h4 className="color-white text-center mt-0 mb-4">
-                        Find Appropriate Venue For having Team Party Near Ahmed Tower, Banani
-                    </h4>
                     {
                         getNearByVenuesApiError && getNearByVenuesApiError.meta && getNearByVenuesApiError.meta.code ?
 
@@ -130,7 +125,7 @@ class Home extends React.Component {
                         </div>:
 
                         <div>
-                            <div className="row justify-content-center">
+                            <div className="row justify-content-center mt-4">
                                 <div className="col-lg-6 col-md-6 col-12">
                                         <button 
                                             type="button" 
