@@ -137,7 +137,9 @@ I've used a prominent Promise based HTTP client for the browser and node.js name
     Later I changed the procedure. Now, an initial API call occurs as soon as the App component mounts to the DOM tree and upon successful completion of the request a list of venues get stored in thye state of the app. So, both the random selection and search venue feature can utilizes that initially retrieved list. 
 
     If I got more time I would create seperate branches to depict both of the procedures. 
+     <br><br>
 
+* There are things I haven't been able to do within the submission date (Mar 04, 2019) both feature centric and code management/architecture centric. So, I've created another branch named 'experimental' where I have done some fine-tuning. 
 
 
 

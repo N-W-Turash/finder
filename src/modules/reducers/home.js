@@ -209,7 +209,7 @@ export default (state = initialState, action) => {
                 searchedVenuesList.push(flatten(venue));
             });
           
-            searchedVenuesList= searchedVenuesList.filter((venue, index) => {
+            searchedVenuesList= searchedVenuesList.filter((venue) => {
                 /* 
                 * Non alphanumeric characters from the search text get removed.
                 */

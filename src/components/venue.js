@@ -14,6 +14,7 @@ export class Venue extends React.Component {
          * This component gets venueData (object) as prop from the parent container. 
          * 
          */
+        
         const  { venueData } = this.props;
         const { name, description, address, categoryName, phone, imgSrc } = venueData;
 
