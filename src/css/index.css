@@ -527,6 +527,8 @@ button:focus { outline: none!important; }
   border-color: #615e5e;
 }
 
+.tooltip-inner-custom { background-color: rgba(0, 0, 0, .4); }
+
 /*
 * <---Ending of app specific css ---> 
 */

@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import IosRefresh from 'react-ionicons/lib/IosRefresh';
+import MdRefreshCircle from 'react-ionicons/lib/MdRefreshCircle';
 import { success } from "react-notification-system-redux";
 import { VenueMap, Header } from '../../components/';
 import SearchForm from './components/searchForm';
 import SelectedVenue from './components/selectedVenue';
 import SearchedVenue from './components/searchedVenue';
+import { getClientWidth } from "../../helpers";
 import { 
     getNearbyVenues, 
     GET_NEARBY_VENUES_REQUESTS, 
@@ -132,8 +133,11 @@ class Home extends React.Component {
                                             className="btn btn-danger btn-lg btn-block"
                                             onClick={(e) => onSelectButtonClick(e)}
                                             disabled={isLoading || isSelecting}
+                                            data-toggle="tooltip" 
+                                            data-placement={getClientWidth() > 767 ? "right" : "top"}
+                                            title="Select a restaurant randomly within a radius of 1 km."
                                         >
-                                            { isSelecting ? 'Selecting...' : 'Let us select one for you' }
+                                            { isSelecting ? 'Selecting...' : 'Select one randomly' }
                                         </button>
                                 </div>
                             </div>
@@ -156,9 +160,9 @@ class Home extends React.Component {
                 }
 
                 {
-                    isSelecting &&
+                    isSelecting && 
                     <div className="spinner-container">
-                        <IosRefresh fontSize="120px" color="#ffffff" rotate={true} />
+                        <MdRefreshCircle fontSize={getClientWidth() > 767 ? "120px" : "60px"} color="rgba(0, 0, 0, .7)" rotate={true} />
                     </div>
                 }
 

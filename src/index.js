@@ -22,6 +22,19 @@ window.jQuery = window.$ = $;
 window.Popper = Popper;
 
 /**
+ * Initializes all bootstrap tooltips across the pages. 
+ * 
+ */
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip({
+        template: '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner tooltip-inner-custom"></div></div>',
+        trigger: 'hover',
+    });
+});
+  
+
+/**
  * The whole app will be mounted inside the html element with having the id 'root'.
  * 
  */
