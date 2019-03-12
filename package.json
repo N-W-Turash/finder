@@ -140,7 +140,8 @@
     "watchPlugins": [
       "G:\\Development\\projects\\team-party-restaurant-finder\\node_modules\\jest-watch-typeahead\\filename.js",
       "G:\\Development\\projects\\team-party-restaurant-finder\\node_modules\\jest-watch-typeahead\\testname.js"
-    ]
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js"
   },
   "babel": {
     "presets": [
