@@ -10,3 +10,7 @@ export {
 export {
     routesList,
 } from './routesList';
+
+export {
+    getClientWidth,
+} from './getClientWidth';
