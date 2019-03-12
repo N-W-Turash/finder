@@ -9,7 +9,7 @@ import Tether from 'tether';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import App from './containers/app';
-import './index.css';
+import './css/index.css';
 
 /**
  * As we're using bootstrap framework; we need to enable jquery, popper.js and tether.js 
