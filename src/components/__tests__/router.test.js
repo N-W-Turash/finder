@@ -1,8 +1,8 @@
 import React from "react";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from 'enzyme-adapter-react-16';
-import { RouterComponent } from "./router";
-import { routesList as components } from "../helpers/";
+import { RouterComponent } from "../router/router";
+import { routesList as components } from "../../helpers/";
 
 Enzyme.configure({ adapter: new Adapter() });
 
