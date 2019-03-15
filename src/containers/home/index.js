@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import MdRefreshCircle from 'react-ionicons/lib/MdRefreshCircle';
 import { success } from 'react-notification-system-redux';
-import { VenueMap, Header } from '../../components/';
+import { VenueMap, Header, Loading } from '../../components/';
 import SearchForm from './components/searchForm';
 import SelectedVenue from './components/selectedVenue';
 import SearchedVenue from './components/searchedVenue';
@@ -180,15 +179,7 @@ class Home extends React.Component {
 						</div>
 					)}
 
-				{isSelecting && (
-					<div className="spinner-container">
-						<MdRefreshCircle
-							fontSize={getClientWidth() > 767 ? '120px' : '60px'}
-							color="rgba(0, 0, 0, .7)"
-							rotate={true}
-						/>
-					</div>
-				)}
+				{isSelecting && <Loading />}
 
 				{!isSelecting && selectedVenue && selectedVenue.details && (
 					<div className="venue-container mb-3 px-4">

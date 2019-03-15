@@ -70,6 +70,7 @@
     "react-redux": "^6.0.1",
     "react-responsive-modal": "^3.6.0",
     "react-router-dom": "^4.3.1",
+    "react-styleguidist": "^9.0.4",
     "react-test-renderer": "^16.8.4",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
@@ -92,6 +93,8 @@
     ]
   },
   "scripts": {
+	"styleguide": "styleguidist server",
+	"styleguide:build": "styleguidist build",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js ",

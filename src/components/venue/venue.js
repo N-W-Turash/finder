@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Marker from '../../assets/imgs/marker.svg';
+import Type from '../../assets/imgs/type.svg';
+import Phone from '../../assets/imgs/phone.svg';
 import Default from '../../assets/imgs/default.jpg';
 import { ListView } from '../index';
 
@@ -19,6 +22,21 @@ export class Venue extends React.Component {
 			phone,
 			imgSrc
 		} = venueData;
+
+		const listItems = [
+			{
+				imgSrc: Marker,
+				text: address
+			},
+			{
+				imgSrc: Type,
+				text: categoryName
+			},
+			{
+				imgSrc: Phone,
+				text: phone
+			}
+		];
 
 		/**
 		 * For now, the name, decription, address, category, contact information and an image
@@ -42,11 +60,7 @@ export class Venue extends React.Component {
 
 					<p>{description}</p>
 
-					<ListView
-						address={address}
-						categoryName={categoryName}
-						phone={phone}
-					/>
+					<ListView listItems={listItems} />
 				</div>
 			</div>
 		);

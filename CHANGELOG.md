@@ -3,9 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## v0.0.2 - 2019-03-15
 ### Added
-- Added ListView and Listitem components.
+- Added ListView, Listitem components.
 - Added husky lint-staged prettier package for automatic code formatting.
-- Added .editorconfig file for consistent coding styles
+- Added .editorconfig file for consistent coding styles.
+- Enabled debugger inside the editor (vscode).
+- Added react-styleguidist for developing components in isolation. 
+- Added Loading component.
+- Added ListView component as a child component to Searchedvenue component.
 ### Changed
 - CSS modifications of different components.
 
@@ -24,4 +28,4 @@ All notable changes to this project will be documented in this file.
 - Added context to Home container
 
 ## v0.0.1 - 2019-03-04
-- Got done with the submission as assignment. 
+- Got done with the submission as assignment.
