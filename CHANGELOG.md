@@ -1,7 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## v0.0.2 - 2019-03-09
+### Added
+- Added ListView and Listitem components.
+### Changed
+- CSS modifications of different components.
+
 
 ## v0.0.2 - 2019-03-09
 ### Added
@@ -16,6 +21,5 @@ All notable changes to this project will be documented in this file.
 - Added routerList helper where all the route components get imported and placed in the array. Both the App component and router.test.js file is imporitng the array from here. 
 - Added context to Home container
 
-## [Released]
 ## v0.0.1 - 2019-03-04
 - Got done with the submission as assignment. 

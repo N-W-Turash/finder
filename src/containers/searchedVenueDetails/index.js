@@ -42,7 +42,7 @@ class SearchedVenueDetails extends React.Component {
                         <IosRefresh fontSize="120px" color="#ffffff" rotate={true} />
                     </div> :
 
-                    <div className="venue-container mb-5 px-4">
+                    <div className="venue-container mb-3 px-4">
                         <div className="row mt-5">
                             <div className="col-lg-6 col-12">
                                 <Venue

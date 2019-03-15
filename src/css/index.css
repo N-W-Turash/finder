@@ -498,8 +498,6 @@ button:focus { outline: none!important; }
 
 .svg-icon-left {
   max-width: 20px;
-  margin-right: 10px;
-  margin-top: -5px;
 }
 
 .venue-container { min-height: 550px; }
@@ -528,6 +526,27 @@ button:focus { outline: none!important; }
 }
 
 .tooltip-inner-custom { background-color: rgba(0, 0, 0, .4); }
+
+.venue-map-container, #venue-map-container {
+  min-height: 500px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.list-view-icon-container {
+  width: 30px;
+  margin-right: 0;
+  float: left;
+}
+
+.list-view-icon-container img {
+  width: 100%;
+}
+
+.list-view-text-container {
+  width: calc(100% - 30px);
+  float: left;
+}
 
 /*
 * <---Ending of app specific css ---> 

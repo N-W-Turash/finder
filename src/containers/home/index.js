@@ -169,7 +169,7 @@ class Home extends React.Component {
                 {
                     !isSelecting && selectedVenue && selectedVenue.details &&
                     
-                    <div className="venue-container mb-5 px-4">
+                    <div className="venue-container mb-3 px-4">
                         <div className="row mt-5">
                             <div className="col-lg-6 col-12">
                                 <SelectedVenue 
@@ -182,7 +182,7 @@ class Home extends React.Component {
                             <div className="col-lg-6 col-12">
                                 {
                                     selectedVenue && selectedVenue.location &&
-                                    <div className="selected-venue-map-container mt-4">
+                                    <div className="venue-map-container mt-4" id="venue-map-container">
                                         {
                                             <VenueMap
                                                 location={selectedVenue.location}

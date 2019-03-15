@@ -12,7 +12,7 @@ export class Header extends React.Component {
                     <MdRestaurant fontSize={getClientWidth() > 767 ? "60px" : "30px"} color="#ffffff"  style={{marginRight: '10px', marginTop: '-5px'}}/>
                     FINDER
                 </h3>
-                <h5 className="color-white mt-0 mb-2 fs-2 fw-400">
+                <h5 className="color-white mt-0 mb-3 fs-2 fw-400">
                     Find Appropriate Venue For having Team Party Near Ahmed Tower, Banani
                 </h5>
             </div>
