@@ -1,14 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## v0.0.2 - 2019-03-09
+## v0.0.2 - 2019-03-15
 ### Added
 - Added ListView and Listitem components.
+- Added husky lint-staged prettier package for automatic code formatting.
 ### Changed
 - CSS modifications of different components.
 
 
-## v0.0.2 - 2019-03-09
+## v0.0.2 - 2019-03-12
 ### Added
 - Started writing to CHANGELOG.md file to keep record of the changes.
 - A new command named 'analyze' has been added in the scripts of the package.json which uses the source-map-explorer package to analyze the bundle size in production and show details of it visually.
