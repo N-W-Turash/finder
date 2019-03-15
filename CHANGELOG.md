@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Added ListView and Listitem components.
 - Added husky lint-staged prettier package for automatic code formatting.
+- Added .editorconfig file for consistent coding styles
 ### Changed
 - CSS modifications of different components.
 
