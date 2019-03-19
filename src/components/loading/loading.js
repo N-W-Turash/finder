@@ -10,8 +10,13 @@ import { getClientWidth } from '../../helpers';
 
 export class Loading extends React.Component {
 	render() {
+		const { paddingTop } = this.props;
+
 		return (
-			<div className="spinner-container">
+			<div
+				className="spinner-container"
+				style={{ paddingTop: paddingTop }}
+			>
 				<MdRefreshCircle
 					fontSize={getClientWidth() > 767 ? '100px' : '60px'}
 					color="rgba(0, 0, 0, .7)"

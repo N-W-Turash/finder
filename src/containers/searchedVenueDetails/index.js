@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Animated } from 'react-animated-css';
 import {
 	GET_VENUE_DETAILS_REQUEST,
 	getVenueDetails
@@ -39,30 +40,36 @@ class SearchedVenueDetails extends React.Component {
 				{isVenuDetailsDataLoading ? (
 					<Loading />
 				) : (
-					<div className="venue-container mb-3 px-4">
-						<div className="row mt-5">
-							<div className="col-lg-6 col-12">
-								<Venue
-									venueData={resolveVenueData(venueData)}
-								/>
-							</div>
-							<div className="col-lg-6 col-12">
-								{searchedVenueDetails.venue &&
-									searchedVenueDetails.venue.location && (
-										<div className="selected-venue-map-container mt-4">
-											{
-												<VenueMap
-													location={
-														searchedVenueDetails
-															.venue.location
-													}
-												/>
-											}
-										</div>
-									)}
+					<Animated
+						animationIn="fadeIn"
+						animationOut="fadeIn"
+						isVisible={true}
+					>
+						<div className="venue-container mb-3 px-4">
+							<div className="row mt-5">
+								<div className="col-lg-6 col-12">
+									<Venue
+										venueData={resolveVenueData(venueData)}
+									/>
+								</div>
+								<div className="col-lg-6 col-12">
+									{searchedVenueDetails.venue &&
+										searchedVenueDetails.venue.location && (
+											<div className="selected-venue-map-container mt-4">
+												{
+													<VenueMap
+														location={
+															searchedVenueDetails
+																.venue.location
+														}
+													/>
+												}
+											</div>
+										)}
+								</div>
 							</div>
 						</div>
-					</div>
+					</Animated>
 				)}
 				<Link to="/" className="btn btn-info">
 					Go Back To Home

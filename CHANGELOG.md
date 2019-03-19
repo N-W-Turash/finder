@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## v0.0.2 - 2019-03-19
+### Added
+- Added Animated component from 'react-animated-css' lib to animate components.
+### Removed
+- Removed RouterComponent component and routerList helper.
+### Changed
+- Routes are now placed at App component. Route level code splitting done by 
+  the '@loadable/component' lib recommended by the React team.
+
 ## v0.0.2 - 2019-03-15
 ### Added
 - Added ListView, Listitem components.

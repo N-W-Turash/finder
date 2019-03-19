@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { success } from 'react-notification-system-redux';
+import Notifications, { success } from 'react-notification-system-redux';
+import { Animated } from 'react-animated-css';
 import { VenueMap, Header, Loading } from '../../components/';
 import SearchForm from './components/searchForm';
 import SelectedVenue from './components/selectedVenue';
@@ -71,7 +72,7 @@ class Home extends React.Component {
 		 *
 		 */
 
-		const { dispatch, home } = this.props;
+		const { dispatch, home, notifications } = this.props;
 		let {
 			selectedVenue,
 			isLoading,
@@ -124,121 +125,170 @@ class Home extends React.Component {
 		return (
 			<section className="container">
 				<Header />
-
-				<div className="main-section">
-					{getNearByVenuesApiError &&
-					getNearByVenuesApiError.meta &&
-					getNearByVenuesApiError.meta.code ? (
-						<div className="alert alert-danger mt-4" role="alert">
-							Cannot retrieve the data of nearby venues due to the
-							occurrence of an unexpected error. So, the service
-							is currently unavailable.
-						</div>
-					) : (
-						<div>
-							<div className="row justify-content-center mt-4">
-								<div className="col-lg-6 col-md-6 col-12">
-									<button
-										type="button"
-										className="btn btn-danger btn-lg btn-block"
-										onClick={e => onSelectButtonClick(e)}
-										disabled={isLoading || isSelecting}
-										data-toggle="tooltip"
-										data-placement={
-											getClientWidth() > 767
-												? 'right'
-												: 'top'
-										}
-										title="Select a restaurant randomly within a radius of 1 km."
-									>
-										{isSelecting
-											? 'Selecting...'
-											: 'Select one randomly'}
-									</button>
-								</div>
+				<Animated
+					animationIn="fadeIn"
+					animationOut="fadeIn"
+					isVisible={true}
+				>
+					<div className="main-section">
+						{getNearByVenuesApiError &&
+						getNearByVenuesApiError.meta &&
+						getNearByVenuesApiError.meta.code ? (
+							<div
+								className="alert alert-danger mt-4"
+								role="alert"
+							>
+								Cannot retrieve the data of nearby venues due to
+								the occurrence of an unexpected error. So, the
+								service is currently unavailable.
 							</div>
-							<h3 className="color-white mt-3 text-center fw-400">
-								OR
-							</h3>
-							<SearchForm
-								dispatch={dispatch}
-								formFieldChange={formFieldChange}
-								searchText={searchText}
-								searchVenues={searchVenues}
-							/>
-						</div>
-					)}
-				</div>
+						) : (
+							<div>
+								<div className="row justify-content-center mt-4">
+									<div className="col-lg-6 col-md-6 col-12">
+										<button
+											type="button"
+											className="btn btn-danger btn-lg btn-block"
+											onClick={e =>
+												onSelectButtonClick(e)
+											}
+											disabled={isLoading || isSelecting}
+											data-toggle="tooltip"
+											data-placement={
+												getClientWidth() > 767
+													? 'right'
+													: 'top'
+											}
+											title="Select a restaurant randomly within a radius of 1 km."
+										>
+											{isSelecting
+												? 'Selecting...'
+												: 'Select one randomly'}
+										</button>
+									</div>
+								</div>
+								<h3 className="color-white mt-3 text-center fw-400">
+									OR
+								</h3>
+								<SearchForm
+									dispatch={dispatch}
+									formFieldChange={formFieldChange}
+									searchText={searchText}
+									searchVenues={searchVenues}
+								/>
+							</div>
+						)}
+					</div>
+				</Animated>
 
 				{venueDetailsApiError &&
 					venueDetailsApiError.meta &&
 					venueDetailsApiError.meta.code && (
-						<div className="alert alert-danger mt-4" role="alert">
-							An unexpected error occurred while retrieving the
-							data; please try again later.
-						</div>
+						<Animated
+							animationIn="fadeIn"
+							animationOut="fadeIn"
+							isVisible={true}
+						>
+							<div
+								className="alert alert-danger mt-4"
+								role="alert"
+							>
+								An unexpected error occurred while retrieving
+								the data; please try again later.
+							</div>
+						</Animated>
 					)}
 
 				{isSelecting && <Loading />}
 
 				{!isSelecting && selectedVenue && selectedVenue.details && (
-					<div className="venue-container mb-3 px-4">
-						<div className="row mt-5">
-							<div className="col-lg-6 col-12">
-								<SelectedVenue
-									selectedVenue={selectedVenue}
-									openViewDetailsModal={openViewDetailsModal}
-									closeViewDetailsModal={
-										closeViewDetailsModal
-									}
-									showViewDetailsModal={showViewDetailsModal}
-								/>
-							</div>
-							<div className="col-lg-6 col-12">
-								{selectedVenue && selectedVenue.location && (
-									<div
-										className="venue-map-container mt-4"
-										id="venue-map-container"
-									>
-										{
-											<VenueMap
-												location={
-													selectedVenue.location
-												}
-											/>
+					<Animated
+						animationIn="fadeIn"
+						animationOut="fadeIn"
+						isVisible={true}
+					>
+						<div className="venue-container mb-3 px-4">
+							<div className="row mt-5">
+								<div className="col-lg-6 col-12">
+									<SelectedVenue
+										selectedVenue={selectedVenue}
+										openViewDetailsModal={
+											openViewDetailsModal
 										}
-									</div>
-								)}
+										closeViewDetailsModal={
+											closeViewDetailsModal
+										}
+										showViewDetailsModal={
+											showViewDetailsModal
+										}
+									/>
+								</div>
+								<div className="col-lg-6 col-12">
+									{selectedVenue && selectedVenue.location && (
+										<div
+											className="venue-map-container mt-4"
+											id="venue-map-container"
+										>
+											{
+												<VenueMap
+													location={
+														selectedVenue.location
+													}
+												/>
+											}
+										</div>
+									)}
+								</div>
 							</div>
 						</div>
-					</div>
+					</Animated>
 				)}
 
 				{!selectedVenue.id && searchedVenuesList.length ? (
-					<div className="seareched-venues-container mb-5 px-4">
-						<div className="row row-flex">
-							{searchedVenuesList.map((searchedVenue, index) => {
-								return (
-									<div className="col-lg-4 mt-4" key={index}>
-										<SearchedVenue
-											searchedVenue={searchedVenue}
-										/>
-									</div>
-								);
-							})}
+					<Animated
+						animationIn="fadeIn"
+						animationOut="fadeIn"
+						isVisible={true}
+					>
+						<div className="seareched-venues-container mb-5 px-4">
+							<div className="row row-flex">
+								{searchedVenuesList.map(
+									(searchedVenue, index) => {
+										return (
+											<div
+												className="col-lg-4 mt-4"
+												key={index}
+											>
+												<SearchedVenue
+													searchedVenue={
+														searchedVenue
+													}
+												/>
+											</div>
+										);
+									}
+								)}
+							</div>
 						</div>
-					</div>
+					</Animated>
 				) : (
 					undefined
 				)}
 
 				{!selectedVenue.id && !searchedVenuesList.length && searchFlag && (
-					<div className="well mt-5 py-3">
-						<h1 className="color-white text-center mb-0">
-							Nothing Found
-						</h1>
-					</div>
+					<Animated
+						animationIn="fadeIn"
+						animationOut="fadeIn"
+						isVisible={true}
+					>
+						<div className="well mt-5 py-3">
+							<h1 className="color-white text-center mb-0">
+								Nothing Found
+							</h1>
+						</div>
+					</Animated>
 				)}
+				<Notifications key={2} notifications={notifications} />
 			</section>
 		);
 	}
@@ -249,8 +299,22 @@ Home.propTypes = {
 	home: PropTypes.object.isRequired
 };
 
+/**
+ * The connect() function connects a React component to a Redux store.
+ * If a mapStateToProps function is specified, the new wrapper component will subscribe to Redux store updates.
+ * This means that any time the store is updated, mapStateToProps will be called.
+ * The mapStateToProps functions are expected to return an object. This object, normally referred to as
+ * stateProps, will be merged as props to the connected component.
+ *
+ * We can get access to the history object’s properties and the closest <Route>'s match via the withRouter
+ * higher-order component. withRouter will pass updated match, location, and history props to the
+ * wrapped component whenever it renders.
+ *
+ */
+
 const mapStateToProps = state => ({
-	home: state.home
+	home: state.home,
+	notifications: state.notifications
 });
 
 export default (Home = withRouter(connect(mapStateToProps)(Home)));

@@ -1,16 +1,5 @@
-export { 
-    getNearbyVenuesUrl,
-    getSelectedVenueDetailsUrl,
-} from './apiUrls';
+export { getNearbyVenuesUrl, getSelectedVenueDetailsUrl } from './apiUrls';
 
-export { 
-    resolveVenueData,
-} from './resolveVenueData';
+export { resolveVenueData } from './resolveVenueData';
 
-export {
-    routesList,
-} from './routesList';
-
-export {
-    getClientWidth,
-} from './getClientWidth';
+export { getClientWidth } from './getClientWidth';
