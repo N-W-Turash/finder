@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Marker from '../../../assets/imgs/marker.svg';
 import Type from '../../../assets/imgs/type.svg';
+import Distance from '../../../assets/imgs/distance.svg';
 import { ListView } from '../../../components';
 
 export default class SearchedVenue extends React.Component {
@@ -12,7 +13,7 @@ export default class SearchedVenue extends React.Component {
 		 *
 		 */
 
-		const { id, name, address, category } = this.props;
+		const { id, name, address, category, distance } = this.props;
 
 		const listItems = [
 			{
@@ -22,6 +23,10 @@ export default class SearchedVenue extends React.Component {
 			{
 				imgSrc: Type,
 				text: category
+			},
+			{
+				imgSrc: Distance,
+				text: distance
 			}
 		];
 
@@ -52,5 +57,6 @@ SearchedVenue.propTypes = {
 	id: PropTypes.string.isRequired,
 	name: PropTypes.string.isRequired,
 	address: PropTypes.string.isRequired,
-	category: PropTypes.string.isRequired
+	category: PropTypes.string.isRequired,
+	distance: PropTypes.string.isRequired
 };

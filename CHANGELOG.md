@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## v0.0.2 - 2019-03-26
+### Added
+- A generic feature has been developed, now a user can pick a location up from the 
+dropdown menu and run a search for nearby venues within a range of 5km.
+- Now the users can see the distance of the venues within the radius of the search areas.
+
 ## v0.0.2 - 2019-03-19
 ### Added
 - Added Animated component from 'react-animated-css' lib to animate components.

@@ -78,12 +78,14 @@ export default (state = initialState, action) => {
 		case GET_NEARBY_VENUES_SUCCESS:
 			return {
 				...state,
-				// venuesList: action.payload.venues,
 				searchedVenuesList: action.payload.venues,
 				filteredVenueList: [],
 				isLoading: false,
 				venueDetailsApiError: {},
-				getNearByVenuesApiError: {}
+				getNearByVenuesApiError: {},
+				filterObject: {
+					filterText: ''
+				}
 			};
 
 		/**
@@ -261,8 +263,6 @@ export default (state = initialState, action) => {
 				}
 				return 0;
 			});
-
-			console.log('filteredVenueList->', filteredVenueList);
 
 			return {
 				...state,

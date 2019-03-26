@@ -298,14 +298,17 @@ class Home extends React.Component {
 							<div className="row row-flex">
 								{venueList.map((venue, index) => {
 									let address = filteredVenuesListLength
-										? venue['location.address']
-										: venue.location.address;
-									let category = filteredVenuesListLength
-										? venue['categories.0.name']
-										: venue.categories[0].name;
+											? venue['location.address']
+											: venue.location.address,
+										category = filteredVenuesListLength
+											? venue['categories.0.name']
+											: venue.categories[0].name,
+										distance = filteredVenuesListLength
+											? venue['location.distance']
+											: venue.location.distance;
 									return (
 										<div
-											className="col-lg-4 mt-4"
+											className="col-lg-4 col-sm-6 col-xs-12 mt-4"
 											key={index}
 										>
 											<SearchedVenue
@@ -319,6 +322,9 @@ class Home extends React.Component {
 												category={
 													category ? category : `N/A`
 												}
+												distance={`${(
+													distance / 1000
+												).toFixed(2)} KM`}
 											/>
 										</div>
 									);
@@ -343,6 +349,7 @@ class Home extends React.Component {
 						</div>
 					</Animated>
 				)} */}
+
 				<Notifications key={2} notifications={notifications} />
 			</section>
 		);

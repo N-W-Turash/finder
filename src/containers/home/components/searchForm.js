@@ -110,6 +110,25 @@ export default class SearchForm extends React.Component {
 									}}
 								/>
 							</button>
+							{/* <button
+								type="button"
+								className="btn btn-danger btn-lg btn-block"
+								onClick={e =>
+									onSelectButtonClick(e)
+								}
+								disabled={isLoading || isSelecting}
+								data-toggle="tooltip"
+								data-placement={
+									getClientWidth() > 767
+										? 'right'
+										: 'top'
+								}
+								title="Select a restaurant randomly within a radius of 1 km."
+							>
+								{isSelecting
+									? 'Selecting...'
+									: 'Select one randomly'}
+							</button> */}
 						</div>
 					</div>
 				</form>
