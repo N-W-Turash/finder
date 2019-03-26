@@ -8,24 +8,20 @@ import { ListView } from '../../../components';
 export default class SearchedVenue extends React.Component {
 	render() {
 		/**
-		 * This component gets searchedVenue(object) as a prop from the parent container.
+		 * This component gets id, name, address, category as  props from the parent container.
 		 *
 		 */
 
-		const { searchedVenue } = this.props;
+		const { id, name, address, category } = this.props;
 
 		const listItems = [
 			{
 				imgSrc: Marker,
-				text: searchedVenue['location.address']
-					? searchedVenue['location.address']
-					: `Dhaka (Details not availbale)`
+				text: address
 			},
 			{
 				imgSrc: Type,
-				text: searchedVenue['categories.0.name']
-					? searchedVenue['categories.0.name']
-					: `N/A`
+				text: category
 			}
 		];
 
@@ -37,16 +33,13 @@ export default class SearchedVenue extends React.Component {
 		 */
 
 		return (
-			<div className="card custom-card mt-4 searched-venue-component">
+			<div className="card custom-card searched-venue-component">
 				<div className="card-body fs-2">
 					<h5 className="card-title uppercase fw-400 ls-title-">
-						{searchedVenue.name}
+						{name}
 					</h5>
 					<ListView listItems={listItems} />
-					<Link
-						to={`/venue/${searchedVenue['id']}`}
-						className="btn btn-info"
-					>
+					<Link to={`/venue/${id}`} className="btn btn-info">
 						View Details
 					</Link>
 				</div>
@@ -56,5 +49,8 @@ export default class SearchedVenue extends React.Component {
 }
 
 SearchedVenue.propTypes = {
-	searchedVenue: PropTypes.object.isRequired
+	id: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	address: PropTypes.string.isRequired,
+	category: PropTypes.string.isRequired
 };

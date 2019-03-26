@@ -20,10 +20,8 @@
  */
 
 const searchApiUrl = 'https://api.foursquare.com/v2/venues/search';
-const latitudeAndLongitude = '23.793727655392733,90.4045502929657';
 const categoryId = '4d4b7105d754a06374d81259';
 const versionDate = '20190304';
-const radius = 1000;
 const intent = 'checkin';
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
@@ -36,8 +34,8 @@ const clientSecret = process.env.CLIENT_SECRET;
 
 const venueDetailsAPiUrl = 'https://api.foursquare.com/v2/venues/';
 
-export const getNearbyVenuesUrl = () => {
-	return `${searchApiUrl}?ll=${latitudeAndLongitude}&categoryId=${categoryId}&intent=${intent}&radius=${radius}&client_id=${clientId}&client_secret=${clientSecret}&v=${versionDate}`;
+export const getNearbyVenuesUrl = (latLng, radius) => {
+	return `${searchApiUrl}?ll=${latLng}&categoryId=${categoryId}&intent=${intent}&radius=${radius}&client_id=${clientId}&client_secret=${clientSecret}&v=${versionDate}`;
 };
 
 export const getSelectedVenueDetailsUrl = venueId => {

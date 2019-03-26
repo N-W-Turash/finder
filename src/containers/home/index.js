@@ -8,18 +8,20 @@ import { VenueMap, Header, Loading } from '../../components/';
 import SearchForm from './components/searchForm';
 import SelectedVenue from './components/selectedVenue';
 import SearchedVenue from './components/searchedVenue';
-import { getClientWidth } from '../../helpers';
+// import { getClientWidth } from '../../helpers';
 import {
 	getNearbyVenues,
 	GET_NEARBY_VENUES_REQUESTS,
 	removeSuccessMessage,
 	formFieldChange,
-	selectRandomVenue,
-	GET_VENUE_DETAILS_REQUEST,
-	getVenueDetails,
+	// selectRandomVenue,
+	// GET_VENUE_DETAILS_REQUEST,
+	// getVenueDetails,
 	searchVenues,
 	viewDetailsModalOpen,
-	viewDetailsModalClose
+	viewDetailsModalClose,
+	areaSelectFieldChange,
+	inputRangetFieldChange
 } from '../../modules/actions';
 
 class Home extends React.Component {
@@ -34,9 +36,9 @@ class Home extends React.Component {
 	 */
 
 	componentDidMount() {
-		const { dispatch } = this.props;
-		dispatch({ type: GET_NEARBY_VENUES_REQUESTS });
-		dispatch(getNearbyVenues());
+		// const { dispatch } = this.props;
+		// dispatch({ type: GET_NEARBY_VENUES_REQUESTS });
+		// dispatch(getNearbyVenues());
 	}
 
 	/**
@@ -76,15 +78,24 @@ class Home extends React.Component {
 		let {
 			selectedVenue,
 			isLoading,
-			searchText,
-			venuesList,
+			searchFormObject,
+			// venuesList,
 			isSelecting,
 			searchedVenuesList,
-			searchFlag,
+			// searchFlag,
 			showViewDetailsModal,
 			getNearByVenuesApiError,
-			venueDetailsApiError
+			venueDetailsApiError,
+			filterObject,
+			filteredVenueList
 		} = home;
+
+		const searchedVenuesListLength = searchedVenuesList.length,
+			filteredVenuesListLength = filteredVenueList.length;
+
+		const venueList = filteredVenuesListLength
+			? filteredVenueList
+			: searchedVenuesList;
 
 		/**
 		 * Gets a random integer between 0 (inclusive) and length of the retrieved array of venues (exclusive).
@@ -92,15 +103,15 @@ class Home extends React.Component {
 		 *
 		 */
 
-		const onSelectButtonClick = e => {
-			e.preventDefault();
-			let randomIndex = Math.floor(Math.random() * venuesList.length);
-			dispatch(selectRandomVenue(randomIndex));
-			dispatch({ type: GET_VENUE_DETAILS_REQUEST });
-			dispatch(
-				getVenueDetails(venuesList[randomIndex].id, 'selectedVenue')
-			);
-		};
+		// const onSelectButtonClick = e => {
+		// 	e.preventDefault();
+		// 	let randomIndex = Math.floor(Math.random() * venuesList.length);
+		// 	dispatch(selectRandomVenue(randomIndex));
+		// 	dispatch({ type: GET_VENUE_DETAILS_REQUEST });
+		// 	dispatch(
+		// 		getVenueDetails(venuesList[randomIndex].id, 'selectedVenue')
+		// 	);
+		// };
 
 		/**
 		 * Function where the action creator related with opening the modal displaying details information of a venue.
@@ -122,6 +133,13 @@ class Home extends React.Component {
 			dispatch(viewDetailsModalOpen());
 		};
 
+		const handleFilterInput = e => {
+			dispatch(
+				formFieldChange(e.target.name, e.target.value, 'filterObject')
+			);
+			dispatch(searchVenues());
+		};
+
 		return (
 			<section className="container">
 				<Header />
@@ -130,7 +148,7 @@ class Home extends React.Component {
 					animationOut="fadeIn"
 					isVisible={true}
 				>
-					<div className="main-section">
+					<div className="main-section mb-5">
 						{getNearByVenuesApiError &&
 						getNearByVenuesApiError.meta &&
 						getNearByVenuesApiError.meta.code ? (
@@ -144,9 +162,28 @@ class Home extends React.Component {
 							</div>
 						) : (
 							<div>
-								<div className="row justify-content-center mt-4">
+								<div className="row mt-3 justify-content-center">
 									<div className="col-lg-6 col-md-6 col-12">
-										<button
+										<SearchForm
+											dispatch={dispatch}
+											formFieldChange={formFieldChange}
+											searchFormObject={searchFormObject}
+											searchVenues={searchVenues}
+											areaSelectFieldChange={
+												areaSelectFieldChange
+											}
+											inputRangetFieldChange={
+												inputRangetFieldChange
+											}
+											getNearbyVenues={getNearbyVenues}
+											GET_NEARBY_VENUES_REQUESTS={
+												GET_NEARBY_VENUES_REQUESTS
+											}
+										/>
+										{/* <h3 className="color-white mt-3 fw-400">
+											OR
+										</h3> */}
+										{/* <button
 											type="button"
 											className="btn btn-danger btn-lg btn-block"
 											onClick={e =>
@@ -164,18 +201,9 @@ class Home extends React.Component {
 											{isSelecting
 												? 'Selecting...'
 												: 'Select one randomly'}
-										</button>
+										</button> */}
 									</div>
 								</div>
-								<h3 className="color-white mt-3 text-center fw-400">
-									OR
-								</h3>
-								<SearchForm
-									dispatch={dispatch}
-									formFieldChange={formFieldChange}
-									searchText={searchText}
-									searchVenues={searchVenues}
-								/>
 							</div>
 						)}
 					</div>
@@ -244,30 +272,57 @@ class Home extends React.Component {
 					</Animated>
 				)}
 
-				{!selectedVenue.id && searchedVenuesList.length ? (
+				{isLoading && <Loading />}
+
+				{!isLoading &&
+				(searchedVenuesListLength || filteredVenuesListLength) ? (
 					<Animated
 						animationIn="fadeIn"
 						animationOut="fadeIn"
 						isVisible={true}
 					>
 						<div className="seareched-venues-container mb-5 px-4">
+							<div className="row">
+								<div className="col-lg-4 col-md-8 col-xs-12">
+									<input
+										type="text"
+										className="form-control form-control-custom mb-3"
+										name="filterText"
+										id="#filterText"
+										value={filterObject.filterText}
+										placeholder="Filter by name / location / category"
+										onChange={e => handleFilterInput(e)}
+									/>
+								</div>
+							</div>
 							<div className="row row-flex">
-								{searchedVenuesList.map(
-									(searchedVenue, index) => {
-										return (
-											<div
-												className="col-lg-4 mt-4"
-												key={index}
-											>
-												<SearchedVenue
-													searchedVenue={
-														searchedVenue
-													}
-												/>
-											</div>
-										);
-									}
-								)}
+								{venueList.map((venue, index) => {
+									let address = filteredVenuesListLength
+										? venue['location.address']
+										: venue.location.address;
+									let category = filteredVenuesListLength
+										? venue['categories.0.name']
+										: venue.categories[0].name;
+									return (
+										<div
+											className="col-lg-4 mt-4"
+											key={index}
+										>
+											<SearchedVenue
+												id={venue.id}
+												name={venue.name}
+												address={
+													address
+														? address
+														: `Dhaka (Details not availbale)`
+												}
+												category={
+													category ? category : `N/A`
+												}
+											/>
+										</div>
+									);
+								})}
 							</div>
 						</div>
 					</Animated>
@@ -275,7 +330,7 @@ class Home extends React.Component {
 					undefined
 				)}
 
-				{!selectedVenue.id && !searchedVenuesList.length && searchFlag && (
+				{/* {!selectedVenue.id && !filteredVenueList.length && searchFlag && (
 					<Animated
 						animationIn="fadeIn"
 						animationOut="fadeIn"
@@ -287,7 +342,7 @@ class Home extends React.Component {
 							</h1>
 						</div>
 					</Animated>
-				)}
+				)} */}
 				<Notifications key={2} notifications={notifications} />
 			</section>
 		);

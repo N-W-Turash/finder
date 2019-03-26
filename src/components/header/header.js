@@ -21,8 +21,8 @@ export class Header extends React.Component {
 						FINDER
 					</h3>
 					<h5 className="color-white mt-0 mb-3 fs-2 fw-400">
-						Find Appropriate Venue For having Team Party Near Ahmed
-						Tower, Banani
+						Find Appropriate Venue For Having Lunch/Dinner Around
+						Specific Areas At Dhaka
 					</h5>
 				</div>
 			</Animated>

@@ -903,12 +903,12 @@ button:focus {
 
 .form-control-custom {
 	border: 1px solid #615e5e;
-	background-color: rgba(255, 255, 255, 0.75);
+	background-color: rgba(255, 255, 255, 0.9);
 }
 
 .form-control-custom:focus {
 	color: rgba(0, 0, 0, 0.75);
-	background-color: rgba(255, 255, 255, 0.75);
+	background-color: rgba(255, 255, 255, 1);
 	border-color: #615e5e;
 }
 
@@ -936,6 +936,42 @@ button:focus {
 .list-view-text-container {
 	width: calc(100% - 30px);
 	float: left;
+}
+
+.input-range {
+	height: 1rem;
+	position: relative;
+	width: 100%;
+	margin-bottom: 40px;
+}
+
+.input-range__label {
+	color: white;
+	font-family: 'Open-sans', sans-serif;
+	font-size: 0.8rem;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+	white-space: nowrap;
+	margin-bottom: -3px;
+}
+
+.input-range__track {
+	background: #ffffff;
+	border-radius: 0.3rem;
+	cursor: pointer;
+	display: block;
+	height: 0.5rem;
+	position: relative;
+	-webkit-transition: left 0.3s ease-out, width 0.3s ease-out;
+	transition: left 0.3s ease-out, width 0.3s ease-out;
+}
+
+.input-range__track--background {
+	left: 0;
+	margin-top: 0.3rem;
+	position: absolute;
+	right: 0;
+	top: 50%;
 }
 
 /*
