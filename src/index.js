@@ -9,6 +9,8 @@ import Tether from 'tether';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'react-input-range/lib/css/index.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import App from './containers/app';
 import './css/index.css';
 
@@ -27,13 +29,13 @@ window.Popper = Popper;
  *
  */
 
-$(function() {
-	$('[data-toggle="tooltip"]').tooltip({
-		template:
-			'<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner tooltip-inner-custom"></div></div>',
-		trigger: 'hover'
-	});
-});
+// $(function() {
+// 	$('[data-toggle="tooltip"]').tooltip({
+// 		template:
+// 			'<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner tooltip-inner-custom"></div></div>',
+// 		trigger: 'hover'
+// 	});
+// });
 
 /**
  * The whole app will be mounted inside the html element with having the id 'root'.

@@ -3,11 +3,9 @@ import {
 	GET_NEARBY_VENUES_REQUESTS,
 	GET_NEARBY_VENUES_SUCCESS,
 	GET_NEARBY_VENUES_FAILURE,
-	SELECT_A_RANDOM_VENUE,
 	GET_VENUE_DETAILS_REQUEST,
 	GET_VENUE_DETAILS_SUCCESS,
 	GET_VENUE_DETAILS_FAILURE,
-	REMOVE_SUCCESS_MESSAGE,
 	FORM_FIELD_CHANGE,
 	SEARCH_VENUES,
 	OPEN_VIEW_DETAILS_MODAL,
@@ -100,22 +98,6 @@ export default (state = initialState, action) => {
 			};
 
 		/**
-		 * When the action with the type 'SELECT_A_RANDOM_VENUE' is dispatched.
-		 * Returns the new state with 'selectedVenue' changed from an empty object to
-		 * an object containing the data of the selected venue, using the 'selectedIndex'
-		 * payload of the action.
-		 */
-
-		case SELECT_A_RANDOM_VENUE:
-			return {
-				...state,
-				selectedVenue: state.venuesList.length
-					? state.venuesList[action.payload.selectedIndex]
-					: {},
-				isSelecting: true
-			};
-
-		/**
 		 * When the action with the type 'GET_VENUE_DETAILS_REQUEST' is dispatched.
 		 * Returns just the new state.
 		 */
@@ -177,17 +159,6 @@ export default (state = initialState, action) => {
 				isSelecting: false,
 				venueDetailsApiError: action.payload.venueDetailsApiError,
 				isVenuDetailsDataLoading: false
-			};
-
-		/**
-		 * When the action with the type 'REMOVE_SUCCESS_MESSAGE' is dispatched.
-		 * Returns the new state with 'selectedVenue' changed to ''.
-		 */
-
-		case REMOVE_SUCCESS_MESSAGE:
-			return {
-				...state,
-				successMessage: ''
 			};
 
 		/**

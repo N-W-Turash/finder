@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## v1.0.0 - 2019-03-29
+### Removed
+- Removed the random selection feature.
+### Added
+- Now users can see the retrieved venues within a carousel.
+
 ## v0.0.2 - 2019-03-26
 ### Added
 - A generic feature has been developed, now a user can pick a location up from the 

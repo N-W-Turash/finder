@@ -2,21 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Notifications, { success } from 'react-notification-system-redux';
 import { Animated } from 'react-animated-css';
+import Slider from 'react-slick';
 import { VenueMap, Header, Loading } from '../../components/';
 import SearchForm from './components/searchForm';
 import SelectedVenue from './components/selectedVenue';
 import SearchedVenue from './components/searchedVenue';
-// import { getClientWidth } from '../../helpers';
 import {
 	getNearbyVenues,
 	GET_NEARBY_VENUES_REQUESTS,
-	removeSuccessMessage,
 	formFieldChange,
-	// selectRandomVenue,
-	// GET_VENUE_DETAILS_REQUEST,
-	// getVenueDetails,
 	searchVenues,
 	viewDetailsModalOpen,
 	viewDetailsModalClose,
@@ -25,64 +20,19 @@ import {
 } from '../../modules/actions';
 
 class Home extends React.Component {
-	/**
-	 * 'componentDidMount()' is invoked immediately after a component is mounted (inserted into the tree).
-	 * Initialization that requires DOM nodes should go here. If we need to load data from a remote
-	 * endpoint, this is a good place to instantiate the network request.
-	 *
-	 * A request to foursquare places API is made as soon as the component mounts.
-	 * Upon successful completion of the request; a list of nearby venues gets loaded.
-	 *
-	 */
-
-	componentDidMount() {
-		// const { dispatch } = this.props;
-		// dispatch({ type: GET_NEARBY_VENUES_REQUESTS });
-		// dispatch(getNearbyVenues());
-	}
-
-	/**
-	 * **IMPORTANT** Note: This needs to be updated later.
-	 * This lifecycle was previously named componentWillReceiveProps.
-	 * That name will continue to work until version 17.
-	 * The function UNSAFE_componentWillReceiveProps is invoked before a mounted component receives new props.
-	 *
-	 * Here, we've used this to show tray notification upon the succesful selection of a venue
-	 * as the component recieves new prop (successMessage) from the state.
-	 *
-	 */
-
-	UNSAFE_componentWillReceiveProps(nextProps) {
-		const { dispatch } = nextProps;
-		const { successMessage } = nextProps.home;
-		const successNotificationOpts = {
-			title: 'Success!',
-			message: successMessage,
-			position: 'tr',
-			autoDismiss: 1
-		};
-
-		if (successMessage) {
-			dispatch(success(successNotificationOpts));
-			dispatch(removeSuccessMessage());
-		}
-	}
-
 	render() {
 		/**
 		 * gets dispatch function and 'home' state as props.
 		 *
 		 */
 
-		const { dispatch, home, notifications } = this.props;
+		const { dispatch, home } = this.props;
 		let {
 			selectedVenue,
 			isLoading,
 			searchFormObject,
-			// venuesList,
 			isSelecting,
 			searchedVenuesList,
-			// searchFlag,
 			showViewDetailsModal,
 			getNearByVenuesApiError,
 			venueDetailsApiError,
@@ -96,22 +46,6 @@ class Home extends React.Component {
 		const venueList = filteredVenuesListLength
 			? filteredVenueList
 			: searchedVenuesList;
-
-		/**
-		 * Gets a random integer between 0 (inclusive) and length of the retrieved array of venues (exclusive).
-		 * Dispatches necessary actions to select a venue from the retrieved list and then loads detailed data of it.
-		 *
-		 */
-
-		// const onSelectButtonClick = e => {
-		// 	e.preventDefault();
-		// 	let randomIndex = Math.floor(Math.random() * venuesList.length);
-		// 	dispatch(selectRandomVenue(randomIndex));
-		// 	dispatch({ type: GET_VENUE_DETAILS_REQUEST });
-		// 	dispatch(
-		// 		getVenueDetails(venuesList[randomIndex].id, 'selectedVenue')
-		// 	);
-		// };
 
 		/**
 		 * Function where the action creator related with opening the modal displaying details information of a venue.
@@ -140,9 +74,46 @@ class Home extends React.Component {
 			dispatch(searchVenues());
 		};
 
+		const settings = {
+			dots: true,
+			infinite: false,
+			speed: 500,
+			slidesToShow: 3,
+			slidesToScroll: 3,
+			initialSlide: 0,
+			// className: 'row row-flex',
+			responsive: [
+				{
+					breakpoint: 1200,
+					settings: {
+						slidesToShow: 3,
+						slidesToScroll: 3,
+						infinite: true,
+						dots: true
+					}
+				},
+				{
+					breakpoint: 991,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 2,
+						initialSlide: 2
+					}
+				},
+				{
+					breakpoint: 767,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1
+					}
+				}
+			]
+		};
+
 		return (
 			<section className="container">
 				<Header />
+
 				<Animated
 					animationIn="fadeIn"
 					animationOut="fadeIn"
@@ -180,28 +151,6 @@ class Home extends React.Component {
 												GET_NEARBY_VENUES_REQUESTS
 											}
 										/>
-										{/* <h3 className="color-white mt-3 fw-400">
-											OR
-										</h3> */}
-										{/* <button
-											type="button"
-											className="btn btn-danger btn-lg btn-block"
-											onClick={e =>
-												onSelectButtonClick(e)
-											}
-											disabled={isLoading || isSelecting}
-											data-toggle="tooltip"
-											data-placement={
-												getClientWidth() > 767
-													? 'right'
-													: 'top'
-											}
-											title="Select a restaurant randomly within a radius of 1 km."
-										>
-											{isSelecting
-												? 'Selecting...'
-												: 'Select one randomly'}
-										</button> */}
 									</div>
 								</div>
 							</div>
@@ -295,7 +244,8 @@ class Home extends React.Component {
 									/>
 								</div>
 							</div>
-							<div className="row row-flex">
+
+							<Slider {...settings}>
 								{venueList.map((venue, index) => {
 									let address = filteredVenuesListLength
 											? venue['location.address']
@@ -307,50 +257,73 @@ class Home extends React.Component {
 											? venue['location.distance']
 											: venue.location.distance;
 									return (
-										<div
-											className="col-lg-4 col-sm-6 col-xs-12 mt-4"
+										<SearchedVenue
 											key={index}
-										>
-											<SearchedVenue
-												id={venue.id}
-												name={venue.name}
-												address={
-													address
-														? address
-														: `Dhaka (Details not availbale)`
-												}
-												category={
-													category ? category : `N/A`
-												}
-												distance={`${(
-													distance / 1000
-												).toFixed(2)} KM`}
-											/>
-										</div>
+											id={venue.id}
+											name={venue.name}
+											address={
+												address
+													? address
+													: `Dhaka (Details not availbale)`
+											}
+											category={
+												category ? category : `N/A`
+											}
+											distance={
+												distance
+													? `${(
+															distance / 1000
+													  ).toFixed(2)} KM`
+													: `N/A`
+											}
+										/>
 									);
 								})}
-							</div>
+							</Slider>
+
+							{/* <div className="row row-flex">
+									{venueList.map((venue, index) => {
+										let address = filteredVenuesListLength
+											? venue['location.address']
+											: venue.location.address,
+											category = filteredVenuesListLength
+												? venue['categories.0.name']
+												: venue.categories[0].name,
+											distance = filteredVenuesListLength
+												? venue['location.distance']
+												: venue.location.distance;
+										return (
+
+											<div
+												className="col-lg-4 col-sm-6 col-xs-12 mt-4"
+												key={index}
+											>
+												<SearchedVenue
+													id={venue.id}
+													name={venue.name}
+													address={
+														address
+															? address
+															: `Dhaka (Details not availbale)`
+													}
+													category={
+														category ? category : `N/A`
+													}
+													distance={
+														distance ?
+															`${(distance / 1000).toFixed(2)} KM` :
+															`N/A`
+													}
+												/>
+											</div>
+										);
+									})}
+								</div> */}
 						</div>
 					</Animated>
 				) : (
 					undefined
 				)}
-
-				{/* {!selectedVenue.id && !filteredVenueList.length && searchFlag && (
-					<Animated
-						animationIn="fadeIn"
-						animationOut="fadeIn"
-						isVisible={true}
-					>
-						<div className="well mt-5 py-3">
-							<h1 className="color-white text-center mb-0">
-								Nothing Found
-							</h1>
-						</div>
-					</Animated>
-				)} */}
-
-				<Notifications key={2} notifications={notifications} />
 			</section>
 		);
 	}
@@ -375,8 +348,7 @@ Home.propTypes = {
  */
 
 const mapStateToProps = state => ({
-	home: state.home,
-	notifications: state.notifications
+	home: state.home
 });
 
 export default (Home = withRouter(connect(mapStateToProps)(Home)));

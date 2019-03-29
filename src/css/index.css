@@ -8,13 +8,26 @@ html {
 
 html,
 body {
-	height: 100%;
 	margin: 0;
-}
-
-body {
+	min-height: 100%;
 	font-weight: 400;
 	line-height: 1.45;
+}
+
+@media (max-width: 767px) {
+	body {
+		background: url(../assets/imgs/bg_mobile.jpg) center center fixed;
+	}
+}
+
+@media (min-width: 766px) {
+	body {
+		background: url(../assets/imgs/bg.jpg) no-repeat center center fixed;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
 }
 
 .full-height {
@@ -736,6 +749,10 @@ button:focus {
 	outline: none !important;
 }
 
+.btn-md {
+	padding: 0.45rem 1.5rem;
+}
+
 .btn-primary {
 	color: #fff;
 	background-color: #252161;
@@ -824,29 +841,18 @@ button:focus {
 * <---Starting of app specific css --->
 */
 
-#root {
-	background: url(../assets/imgs/bg.jpg) no-repeat center center fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-	min-height: 100%;
-}
-
-@media (max-width: 767px) {
-	#root {
-		background: url(../assets/imgs/bg_mobile.jpg) center center fixed;
-	}
-}
-
-.main-section,
+.form-container,
 .custom-list-group .list-group-item,
 .not-found-container,
 .venue-container,
 .well,
 .header-section {
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(0, 0, 0, 0.5);
 	border-radius: 3px;
+}
+
+.form-container {
+	padding: 20px 30px 15px 30px;
 }
 
 .custom-card {
@@ -972,6 +978,11 @@ button:focus {
 	position: absolute;
 	right: 0;
 	top: 50%;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+	background-color: rgba(0, 0, 0, 0.2) !important;
 }
 
 /*

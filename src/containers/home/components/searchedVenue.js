@@ -38,13 +38,13 @@ export default class SearchedVenue extends React.Component {
 		 */
 
 		return (
-			<div className="card custom-card searched-venue-component">
+			<div className="card custom-card searched-venue-component mx-3 mt-3">
 				<div className="card-body fs-2">
 					<h5 className="card-title uppercase fw-400 ls-title-">
 						{name}
 					</h5>
 					<ListView listItems={listItems} />
-					<Link to={`/venue/${id}`} className="btn btn-info">
+					<Link to={`/venue/${id}`} className="btn btn-md btn-info">
 						View Details
 					</Link>
 				</div>

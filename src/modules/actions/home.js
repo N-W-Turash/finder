@@ -26,13 +26,6 @@ export const GET_NEARBY_VENUES_SUCCESS = 'home/GET_NEARBY_VENUES_SUCCESS';
 export const GET_NEARBY_VENUES_FAILURE = 'home/GET_NEARBY_VENUES_FAILURE';
 
 /**
- * Action type to select a random venue from the list of venues.
- *
- */
-
-export const SELECT_A_RANDOM_VENUE = 'home/SELECT_A_RANDOM_VENUE';
-
-/**
  * Three action types to make request to foursqare places API to get deatils
  * of the selected venue, handle successful finishing of the request
  * and handle failure of the request.
@@ -42,13 +35,6 @@ export const SELECT_A_RANDOM_VENUE = 'home/SELECT_A_RANDOM_VENUE';
 export const GET_VENUE_DETAILS_REQUEST = 'home/GET_VENUE_DETAILS_REQUEST';
 export const GET_VENUE_DETAILS_SUCCESS = 'home/GET_VENUE_DETAILS_SUCCESS';
 export const GET_VENUE_DETAILS_FAILURE = 'home/GET_VENUE_DETAILS_FAILURE';
-
-/**
- * Action type to remove the success message depicting successful selection of a venue.
- *
- */
-
-export const REMOVE_SUCCESS_MESSAGE = 'home/REMOVE_SUCCESS_MESSAGE';
 
 /**
  * Action type to handle the search venue form field change.
@@ -139,25 +125,6 @@ export const getNearbyVenuesFailure = response => {
 };
 
 /**
- * 'selectRandomVenue' is an action creator which gets dispatched when a user
- * clicks on the corresponding button to see thedata of a randomly selected venue.
- * Our app selects a vanue randomly from the list of nearby values and for the
- * purpose of doing this it passes the 'selectedIndex' as it's payload which is a
- * random integer between 0(inclusive) and the length of the array (exclusive) containing
- * venues data as objects.
- *
- */
-
-export const selectRandomVenue = selectedIndex => {
-	return {
-		type: SELECT_A_RANDOM_VENUE,
-		payload: {
-			selectedIndex
-		}
-	};
-};
-
-/**
  * 'getVenueDetails' is an asynchronous action creator to handle the api calls to foursquare
  * places API to get the details of a venue.
  *
@@ -207,18 +174,6 @@ export const getVenueDetailsFailure = venueDetailsApiError => {
 		payload: {
 			venueDetailsApiError
 		}
-	};
-};
-
-/**
- * 'removeSuccessMessage' is an action creator which gets dispatched to
- * remove the value of the 'successMessage' from the state.
- *
- */
-
-export const removeSuccessMessage = () => {
-	return {
-		type: REMOVE_SUCCESS_MESSAGE
 	};
 };
 
