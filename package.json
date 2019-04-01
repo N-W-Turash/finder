@@ -1,12 +1,13 @@
 {
-  "name": "team-party-restaurant-finder",
-  "description": "A simple web app to find appropriate restaurant within a limited distance for having team party.",
-  "version": "0.0.1",
+  "name": "finder",
+  "description": "A simple SPA to find Appropriate Venue For Having Lunch/Dinner Around Specific Areas At Dhaka.",
+  "version": "1.0.0",
   "private": true,
   "author": "N-W-Turash <turash.sust@gmail.com>",
-  "homepage": "https://n-w-turash.github.io",
+  "homepage": "http://localhost:5000",
   "dependencies": {
     "@babel/core": "7.2.2",
+    "@loadable/component": "^5.7.0",
     "@svgr/webpack": "4.1.0",
     "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
@@ -23,6 +24,8 @@
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
     "dotenv-webpack": "^1.7.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
     "eslint": "5.12.0",
     "eslint-config-react-app": "^3.0.7",
     "eslint-loader": "2.1.1",
@@ -37,14 +40,17 @@
     "gh-pages": "^2.0.1",
     "history": "^4.7.2",
     "html-webpack-plugin": "4.0.0-alpha.2",
+    "husky": "^1.3.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.6.0",
     "jest-pnp-resolver": "1.0.2",
     "jest-resolve": "23.6.0",
     "jest-watch-typeahead": "^0.2.1",
     "jquery": "^3.3.1",
+    "lint-staged": "^8.1.5",
     "mini-css-extract-plugin": "0.5.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
+    "p-min-delay": "^2.0.0",
     "pigeon-maps": "^0.11.10",
     "pigeon-marker": "^0.3.4",
     "pigeon-overlay": "^0.2.3",
@@ -54,21 +60,27 @@
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.5.0",
     "postcss-safe-parser": "4.0.1",
+    "prettier": "^1.16.4",
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
+    "react-animated-css": "^1.0.4",
     "react-app-polyfill": "^0.2.1",
     "react-dev-utils": "^7.0.3",
     "react-dom": "^16.8.3",
+    "react-input-range": "^1.3.0",
     "react-ionicons": "^3.0.1",
-    "react-notification-system": "^0.2.17",
-    "react-notification-system-redux": "^2.0.0",
     "react-redux": "^6.0.1",
     "react-responsive-modal": "^3.6.0",
     "react-router-dom": "^4.3.1",
+    "react-select": "^2.4.2",
+    "react-slick": "^0.23.2",
+    "react-styleguidist": "^9.0.4",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
+    "slick-carousel": "^1.8.1",
+    "source-map-explorer": "^1.7.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.2",
     "tether": "^1.4.5",
@@ -78,10 +90,20 @@
     "webpack-manifest-plugin": "2.0.4",
     "workbox-webpack-plugin": "3.6.3"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
   "scripts": {
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+
+    "test": "node scripts/test.js ",
+    "analyze": "source-map-explorer --json build/static/js/*.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -135,12 +157,18 @@
     "watchPlugins": [
       "G:\\Development\\projects\\team-party-restaurant-finder\\node_modules\\jest-watch-typeahead\\filename.js",
       "G:\\Development\\projects\\team-party-restaurant-finder\\node_modules\\jest-watch-typeahead\\testname.js"
-    ]
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js"
   },
   "babel": {
     "presets": [
       "react-app"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
 }

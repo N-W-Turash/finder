@@ -1,226 +1,353 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { connect } from "react-redux";
-import MdRestaurant from 'react-ionicons/lib/MdRestaurant';
-import IosRefresh from 'react-ionicons/lib/IosRefresh';
-import { success } from "react-notification-system-redux";
-import { VenueMap } from '../../components/';
+import { connect } from 'react-redux';
+import { Animated } from 'react-animated-css';
+import Slider from 'react-slick';
+import { VenueMap, Header, Loading } from '../../components/';
 import SearchForm from './components/searchForm';
 import SelectedVenue from './components/selectedVenue';
 import SearchedVenue from './components/searchedVenue';
-import { 
-    getNearbyVenues, 
-    GET_NEARBY_VENUES_REQUESTS, 
-    removeSuccessMessage ,
-    formFieldChange,
-    selectRandomVenue,
-    GET_VENUE_DETAILS_REQUEST,
-    getVenueDetails,
-    searchVenues,
-    viewDetailsModalOpen,
-    viewDetailsModalClose,
-} from "../../modules/actions";
+import {
+	getNearbyVenues,
+	GET_NEARBY_VENUES_REQUESTS,
+	formFieldChange,
+	searchVenues,
+	viewDetailsModalOpen,
+	viewDetailsModalClose,
+	areaSelectFieldChange,
+	inputRangetFieldChange
+} from '../../modules/actions';
 
 class Home extends React.Component {
+	render() {
+		/**
+		 * gets dispatch function and 'home' state as props.
+		 *
+		 */
 
-    /**
-     * 'componentDidMount()' is invoked immediately after a component is mounted (inserted into the tree). 
-     * Initialization that requires DOM nodes should go here. If we need to load data from a remote 
-     * endpoint, this is a good place to instantiate the network request.
-     * 
-     * A request to foursquare places API is made as soon as the component mounts.
-     * Upon successful completion of the request; a list of nearby venues gets loaded.
-     * 
-     */
+		const { dispatch, home } = this.props;
+		let {
+			selectedVenue,
+			isLoading,
+			searchFormObject,
+			isSelecting,
+			searchedVenuesList,
+			showViewDetailsModal,
+			getNearByVenuesApiError,
+			venueDetailsApiError,
+			filterObject,
+			filteredVenueList
+		} = home;
 
-    componentDidMount() {
-        const { dispatch } = this.props;
-        dispatch({type: GET_NEARBY_VENUES_REQUESTS});
-        dispatch(getNearbyVenues());
-    }
+		const searchedVenuesListLength = searchedVenuesList.length,
+			filteredVenuesListLength = filteredVenueList.length;
 
-    /**
-     * **IMPORTANT** Note: This needs to be updated later.
-     * This lifecycle was previously named componentWillReceiveProps. 
-     * That name will continue to work until version 17. 
-     * UNSAFE_componentWillReceiveProps() is invoked before a mounted component receives new props.
-     * 
-     * Here, we've used this to show tray notification upon the succesful selection of a venue 
-     * as the component recieves new props from the state (successMessage).
-     * 
-     */
+		const venueList = filteredVenuesListLength
+			? filteredVenueList
+			: searchedVenuesList;
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        const { dispatch } = nextProps;
-        const { successMessage } = nextProps.home;
-        const successNotificationOpts = {
-            title: 'Success!',
-            message: successMessage,
-            position: 'tr',
-            autoDismiss: 1
-        };
+		/**
+		 * Function where the action creator related with opening the modal displaying details information of a venue.
+		 *
+		 */
 
-        if(successMessage) {
-            dispatch(success(successNotificationOpts));
-            dispatch(removeSuccessMessage());
-        }
-    }
+		const closeViewDetailsModal = () => {
+			const { dispatch } = this.props;
+			dispatch(viewDetailsModalClose());
+		};
 
-    render() {
+		/**
+		 * Function where the action creator related with opening the modal displaying details information of a venue.
+		 *
+		 */
 
-        /**
-         * gets dispatch function and 'home' state as props.
-         * 
-         */
+		const openViewDetailsModal = () => {
+			const { dispatch } = this.props;
+			dispatch(viewDetailsModalOpen());
+		};
 
-        const { dispatch, home } = this.props;
-        let { selectedVenue, isLoading, searchText, venuesList, isSelecting, 
-            searchedVenuesList, searchFlag, showViewDetailsModal, getNearByVenuesApiError, venueDetailsApiError } = home;
-        
-        /**
-         * Gets a random integer between 0 (inclusive) and length of the retrieved array of venues (exclusive).
-         * Dispatches necessary actions to select a venue from the retrieved list and then loads detailed data of it.  
-         * 
-         */
-        
-        const onSelectButtonClick = (e) => {
-            e.preventDefault();
-            let randomIndex = Math.floor(Math.random()*venuesList.length);
-            dispatch(selectRandomVenue(randomIndex));
-            dispatch({type: GET_VENUE_DETAILS_REQUEST});
-            dispatch(getVenueDetails(venuesList[randomIndex].id, 'selectedVenue'));
-        };
+		const handleFilterInput = e => {
+			dispatch(
+				formFieldChange(e.target.name, e.target.value, 'filterObject')
+			);
+			dispatch(searchVenues());
+		};
 
-        const closeViewDetailsModal = () => {
-            const {dispatch} = this.props;
-            dispatch(viewDetailsModalClose());
-        };
-    
-        const openViewDetailsModal = () => {
-            const {dispatch} = this.props;
-            dispatch(viewDetailsModalOpen());
-        };
-          
-        return (
-            <section className="container">
-                <div className="main-section" key={1}>
-                    <h3 className="mb-3 fw-400 color-white text-center ls-title">
-                        <MdRestaurant fontSize="60px" color="#ffffff"  style={{marginRight: '10px', marginTop: '-5px'}}/>
-                        RESTAURANT FINDER
-                    </h3>
-                    {
-                        getNearByVenuesApiError && getNearByVenuesApiError.meta && getNearByVenuesApiError.meta.code ?
+		const settings = {
+			dots: true,
+			infinite: false,
+			speed: 500,
+			slidesToShow: 3,
+			slidesToScroll: 3,
+			initialSlide: 0,
+			responsive: [
+				{
+					breakpoint: 1200,
+					settings: {
+						slidesToShow: 3,
+						slidesToScroll: 3,
+						infinite: true,
+						dots: true
+					}
+				},
+				{
+					breakpoint: 991,
+					settings: {
+						slidesToShow: 2,
+						slidesToScroll: 2,
+						initialSlide: 2
+					}
+				},
+				{
+					breakpoint: 767,
+					settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1
+					}
+				}
+			]
+		};
 
-                        <div className="alert alert-danger mt-4" role="alert">
-                            Cannot retrieve the data of nearby venues due to the occurrence of an unexpected error. So, the service is currently unavailable.
-                        </div>:
+		return (
+			<section className="container">
+				<Header />
 
-                        <div>
-                            <div className="row justify-content-center">
-                                <div className="col-lg-6 col-md-6 col-12">
-                                        <button 
-                                            type="button" 
-                                            className="btn btn-danger btn-lg btn-block"
-                                            onClick={(e) => onSelectButtonClick(e)}
-                                            disabled={isLoading || isSelecting}
-                                        >
-                                            { isSelecting ? 'Selecting...' : 'Let us select one for you' }
-                                        </button>
-                                </div>
-                            </div>
-                            <h3 className="color-white mt-3 text-center fw-400">OR</h3>
-                            <SearchForm
-                                dispatch={dispatch}
-                                formFieldChange={formFieldChange}
-                                searchText={searchText}
-                                searchVenues={searchVenues}
-                            />
-                        </div>
-                    }
-                </div>
+				<Animated
+					animationIn="fadeIn"
+					animationOut="fadeIn"
+					isVisible={true}
+				>
+					<div className="main-section mb-5">
+						{getNearByVenuesApiError &&
+						getNearByVenuesApiError.meta &&
+						getNearByVenuesApiError.meta.code ? (
+							<div
+								className="alert alert-danger mt-4"
+								role="alert"
+							>
+								Cannot retrieve the data of nearby venues due to
+								the occurrence of an unexpected error. So, the
+								service is currently unavailable.
+							</div>
+						) : (
+							<div>
+								<div className="row mt-3 justify-content-center">
+									<div className="col-lg-6 col-md-6 col-12">
+										<SearchForm
+											dispatch={dispatch}
+											formFieldChange={formFieldChange}
+											searchFormObject={searchFormObject}
+											searchVenues={searchVenues}
+											areaSelectFieldChange={
+												areaSelectFieldChange
+											}
+											inputRangetFieldChange={
+												inputRangetFieldChange
+											}
+											getNearbyVenues={getNearbyVenues}
+											GET_NEARBY_VENUES_REQUESTS={
+												GET_NEARBY_VENUES_REQUESTS
+											}
+										/>
+									</div>
+								</div>
+							</div>
+						)}
+					</div>
+				</Animated>
 
-                {
-                    venueDetailsApiError && venueDetailsApiError.meta && venueDetailsApiError.meta.code &&
-                    <div className="alert alert-danger mt-4" role="alert">
-                        An unexpected error occurred while retrieving the data; please try again later.
-                    </div>
-                }
+				{venueDetailsApiError &&
+					venueDetailsApiError.meta &&
+					venueDetailsApiError.meta.code && (
+						<Animated
+							animationIn="fadeIn"
+							animationOut="fadeIn"
+							isVisible={true}
+						>
+							<div
+								className="alert alert-danger mt-4"
+								role="alert"
+							>
+								An unexpected error occurred while retrieving
+								the data; please try again later.
+							</div>
+						</Animated>
+					)}
 
-                {
-                    isSelecting &&
-                    <div className="spinner-container">
-                        <IosRefresh fontSize="120px" color="#ffffff" rotate={true} />
-                    </div>
-                }
+				{isSelecting && <Loading />}
 
-                {
-                    !isSelecting && selectedVenue && selectedVenue.details &&
-                    
-                    <div className="venue-container mb-5 px-4">
-                        <div className="row mt-5">
-                            <div className="col-lg-6 col-12">
-                                <SelectedVenue 
-                                    selectedVenue={selectedVenue}
-                                    openViewDetailsModal={openViewDetailsModal}
-                                    closeViewDetailsModal={closeViewDetailsModal}
-                                    showViewDetailsModal={showViewDetailsModal}
-                                />
-                            </div>
-                            <div className="col-lg-6 col-12">
-                                {
-                                    selectedVenue && selectedVenue.location &&
-                                    <div className="selected-venue-map-container mt-4">
-                                        {
-                                            <VenueMap
-                                                location={selectedVenue.location}
-                                            />
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                }
+				{!isSelecting && selectedVenue && selectedVenue.details && (
+					<Animated
+						animationIn="fadeIn"
+						animationOut="fadeIn"
+						isVisible={true}
+					>
+						<div className="venue-container mb-3 px-4">
+							<div className="row mt-5">
+								<div className="col-lg-6 col-12">
+									<SelectedVenue
+										selectedVenue={selectedVenue}
+										openViewDetailsModal={
+											openViewDetailsModal
+										}
+										closeViewDetailsModal={
+											closeViewDetailsModal
+										}
+										showViewDetailsModal={
+											showViewDetailsModal
+										}
+									/>
+								</div>
+								<div className="col-lg-6 col-12">
+									{selectedVenue && selectedVenue.location && (
+										<div
+											className="venue-map-container mt-4"
+											id="venue-map-container"
+										>
+											{
+												<VenueMap
+													location={
+														selectedVenue.location
+													}
+												/>
+											}
+										</div>
+									)}
+								</div>
+							</div>
+						</div>
+					</Animated>
+				)}
 
-                {
-                    !selectedVenue.id && searchedVenuesList.length  && 
-                    <div className="seareched-venues-container mb-5 px-4">
-                        <div className="row row-flex">
-                            {
-                                searchedVenuesList.map((searchedVenue, index) => {
-                                    return (
-                                        <div className="col-lg-4 mt-4" key={index}>
-                                            <SearchedVenue 
-                                                searchedVenue={searchedVenue}
-                                            />
-                                        </div>
-                                    );
-                                })
-                            }
-                        </div>
-                    </div> 
-                }
+				{isLoading && <Loading />}
 
-                {
-                    !selectedVenue.id && !searchedVenuesList.length && searchFlag &&
-                    <div className="well mt-5 py-3">
-                        <h1 className="color-white text-center mb-0">
-                            Nothing Found
-                        </h1>
-                    </div>
-                }
-            </section>
-        );
-    }
+				{!isLoading &&
+				(searchedVenuesListLength || filteredVenuesListLength) ? (
+					<Animated
+						animationIn="fadeIn"
+						animationOut="fadeIn"
+						isVisible={true}
+					>
+						<div className="seareched-venues-container mb-5 px-4">
+							<div className="row">
+								<div className="col-lg-4 col-md-8 col-xs-12">
+									<input
+										type="text"
+										className="form-control form-control-custom mb-3"
+										name="filterText"
+										id="#filterText"
+										value={filterObject.filterText}
+										placeholder="Filter by name / location / category"
+										onChange={e => handleFilterInput(e)}
+									/>
+								</div>
+							</div>
+
+							<Slider {...settings}>
+								{venueList.map((venue, index) => {
+									let address = filteredVenuesListLength
+											? venue['location.address']
+											: venue.location.address,
+										category = filteredVenuesListLength
+											? venue['categories.0.name']
+											: venue.categories[0].name,
+										distance = filteredVenuesListLength
+											? venue['location.distance']
+											: venue.location.distance;
+									return (
+										<SearchedVenue
+											key={index}
+											id={venue.id}
+											name={venue.name}
+											address={
+												address
+													? address
+													: `Dhaka (Details not availbale)`
+											}
+											category={
+												category ? category : `N/A`
+											}
+											distance={
+												distance
+													? `${(
+															distance / 1000
+													  ).toFixed(2)} KM`
+													: `N/A`
+											}
+										/>
+									);
+								})}
+							</Slider>
+
+							{/* <div className="row row-flex">
+									{venueList.map((venue, index) => {
+										let address = filteredVenuesListLength
+											? venue['location.address']
+											: venue.location.address,
+											category = filteredVenuesListLength
+												? venue['categories.0.name']
+												: venue.categories[0].name,
+											distance = filteredVenuesListLength
+												? venue['location.distance']
+												: venue.location.distance;
+										return (
+
+											<div
+												className="col-lg-4 col-sm-6 col-xs-12 mt-4"
+												key={index}
+											>
+												<SearchedVenue
+													id={venue.id}
+													name={venue.name}
+													address={
+														address
+															? address
+															: `Dhaka (Details not availbale)`
+													}
+													category={
+														category ? category : `N/A`
+													}
+													distance={
+														distance ?
+															`${(distance / 1000).toFixed(2)} KM` :
+															`N/A`
+													}
+												/>
+											</div>
+										);
+									})}
+								</div> */}
+						</div>
+					</Animated>
+				) : (
+					undefined
+				)}
+			</section>
+		);
+	}
 }
 
 Home.propTypes = {
-    dispatch: PropTypes.func.isRequired,
+	dispatch: PropTypes.func.isRequired,
+	home: PropTypes.object.isRequired
 };
 
+/**
+ * The connect() function connects a React component to a Redux store.
+ * If a mapStateToProps function is specified, the new wrapper component will subscribe to Redux store updates.
+ * This means that any time the store is updated, mapStateToProps will be called.
+ * The mapStateToProps functions are expected to return an object. This object, normally referred to as
+ * stateProps, will be merged as props to the connected component.
+ *
+ * We can get access to the history object’s properties and the closest <Route>'s match via the withRouter
+ * higher-order component. withRouter will pass updated match, location, and history props to the
+ * wrapped component whenever it renders.
+ *
+ */
+
 const mapStateToProps = state => ({
-    home: state.home
+	home: state.home
 });
 
-export default Home = withRouter(connect(mapStateToProps)(Home));
+export default (Home = withRouter(connect(mapStateToProps)(Home)));
