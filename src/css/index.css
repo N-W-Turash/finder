@@ -910,6 +910,7 @@ button:focus {
 .form-control-custom {
 	border: 1px solid #615e5e;
 	background-color: rgba(255, 255, 255, 0.9);
+	z-index: 100;
 }
 
 .form-control-custom:focus {
@@ -983,6 +984,11 @@ button:focus {
 .slick-slider .slick-track,
 .slick-slider .slick-list {
 	background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.react-select__menu,
+.react-select__menu-outer {
+	z-index: 99999 !important;
 }
 
 /*

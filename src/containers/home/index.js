@@ -81,7 +81,6 @@ class Home extends React.Component {
 			slidesToShow: 3,
 			slidesToScroll: 3,
 			initialSlide: 0,
-			// className: 'row row-flex',
 			responsive: [
 				{
 					breakpoint: 1200,

@@ -1,10 +1,10 @@
 {
   "name": "finder",
-  "description": "A simple SPA to find appropriate venues within a limited distance around the Dhaka city.",
+  "description": "A simple SPA to find Appropriate Venue For Having Lunch/Dinner Around Specific Areas At Dhaka.",
   "version": "1.0.0",
   "private": true,
   "author": "N-W-Turash <turash.sust@gmail.com>",
-  "homepage": "https://github.com/N-W-Turash/finder/tree/dev",
+  "homepage": "http://localhost:5000",
   "dependencies": {
     "@babel/core": "7.2.2",
     "@loadable/component": "^5.7.0",

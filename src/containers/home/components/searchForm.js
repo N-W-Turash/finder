@@ -41,6 +41,13 @@ export default class SearchForm extends React.Component {
 			dispatch(getNearbyVenues(value, radius * 1000));
 		};
 
+		// const selectStyles = {
+		// 	menu: base => ({
+		// 	  ...base,
+		// 	  zIndex: 100
+		// 	})
+		//   };
+
 		return (
 			<div className="form-container">
 				<form>
@@ -51,7 +58,9 @@ export default class SearchForm extends React.Component {
 							</label>
 							<Select
 								options={selectFieldDataList}
-								className="mb-3"
+								// styles={selectStyles}
+								className="react-select-container mb-3"
+								classNamePrefix="react-select"
 								name="selectedAreaData"
 								onChange={(data, action) => {
 									dispatch(
