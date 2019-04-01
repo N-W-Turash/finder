@@ -1,4 +1,4 @@
-##Finder
+## Finder
 
 ### Purposes Behind Developing This Web App
 
@@ -9,8 +9,8 @@ Sometimes we just want to have a look at the list of restaurants within a limite
 If you want to run the app in <b>development mode</b> then execute the follolwing commands from the CMD (git and Node.js need to be installed on your machine for performing these).
 
 ```
-git clone git@github.com:N-W-Turash/team-party-restaurant-finder.git
-cd team-party-restaurant-finder
+git clone git@github.com:N-W-Turash/finder.git
+cd finder
 npm install 
 npm start
 ```
