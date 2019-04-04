@@ -4,17 +4,18 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Animated } from 'react-animated-css';
 import Slider from 'react-slick';
-import { VenueMap, Header, Loading } from '../../components/';
+import { /*VenueMap*/ Header, Loading, ErrorDisplay } from '../../components/';
 import SearchForm from './components/searchForm';
-import SelectedVenue from './components/selectedVenue';
+// import SelectedVenue from './components/selectedVenue';
 import SearchedVenue from './components/searchedVenue';
+
 import {
 	getNearbyVenues,
 	GET_NEARBY_VENUES_REQUESTS,
 	formFieldChange,
 	searchVenues,
-	viewDetailsModalOpen,
-	viewDetailsModalClose,
+	// viewDetailsModalOpen,
+	// viewDetailsModalClose,
 	areaSelectFieldChange,
 	inputRangetFieldChange
 } from '../../modules/actions';
@@ -28,14 +29,10 @@ class Home extends React.Component {
 
 		const { dispatch, home } = this.props;
 		let {
-			selectedVenue,
 			isLoading,
 			searchFormObject,
-			isSelecting,
 			searchedVenuesList,
-			showViewDetailsModal,
 			getNearByVenuesApiError,
-			venueDetailsApiError,
 			filterObject,
 			filteredVenueList
 		} = home;
@@ -52,20 +49,20 @@ class Home extends React.Component {
 		 *
 		 */
 
-		const closeViewDetailsModal = () => {
-			const { dispatch } = this.props;
-			dispatch(viewDetailsModalClose());
-		};
+		// const closeViewDetailsModal = () => {
+		// 	const { dispatch } = this.props;
+		// 	dispatch(viewDetailsModalClose());
+		// };
 
 		/**
 		 * Function where the action creator related with opening the modal displaying details information of a venue.
 		 *
 		 */
 
-		const openViewDetailsModal = () => {
-			const { dispatch } = this.props;
-			dispatch(viewDetailsModalOpen());
-		};
+		// const openViewDetailsModal = () => {
+		// 	const { dispatch } = this.props;
+		// 	dispatch(viewDetailsModalOpen());
+		// };
 
 		const handleFilterInput = e => {
 			dispatch(
@@ -119,105 +116,37 @@ class Home extends React.Component {
 					isVisible={true}
 				>
 					<div className="main-section mb-5">
-						{getNearByVenuesApiError &&
-						getNearByVenuesApiError.meta &&
-						getNearByVenuesApiError.meta.code ? (
-							<div
-								className="alert alert-danger mt-4"
-								role="alert"
-							>
-								Cannot retrieve the data of nearby venues due to
-								the occurrence of an unexpected error. So, the
-								service is currently unavailable.
-							</div>
-						) : (
-							<div>
-								<div className="row mt-3 justify-content-center">
-									<div className="col-lg-6 col-md-6 col-12">
-										<SearchForm
-											dispatch={dispatch}
-											formFieldChange={formFieldChange}
-											searchFormObject={searchFormObject}
-											searchVenues={searchVenues}
-											areaSelectFieldChange={
-												areaSelectFieldChange
-											}
-											inputRangetFieldChange={
-												inputRangetFieldChange
-											}
-											getNearbyVenues={getNearbyVenues}
-											GET_NEARBY_VENUES_REQUESTS={
-												GET_NEARBY_VENUES_REQUESTS
-											}
-										/>
-									</div>
-								</div>
-							</div>
-						)}
-					</div>
-				</Animated>
-
-				{venueDetailsApiError &&
-					venueDetailsApiError.meta &&
-					venueDetailsApiError.meta.code && (
-						<Animated
-							animationIn="fadeIn"
-							animationOut="fadeIn"
-							isVisible={true}
-						>
-							<div
-								className="alert alert-danger mt-4"
-								role="alert"
-							>
-								An unexpected error occurred while retrieving
-								the data; please try again later.
-							</div>
-						</Animated>
-					)}
-
-				{isSelecting && <Loading />}
-
-				{!isSelecting && selectedVenue && selectedVenue.details && (
-					<Animated
-						animationIn="fadeIn"
-						animationOut="fadeIn"
-						isVisible={true}
-					>
-						<div className="venue-container mb-3 px-4">
-							<div className="row mt-5">
-								<div className="col-lg-6 col-12">
-									<SelectedVenue
-										selectedVenue={selectedVenue}
-										openViewDetailsModal={
-											openViewDetailsModal
+						<div>
+							<div className="row mt-3 justify-content-center">
+								<div className="col-lg-6 col-md-6 col-12">
+									<SearchForm
+										dispatch={dispatch}
+										formFieldChange={formFieldChange}
+										searchFormObject={searchFormObject}
+										searchVenues={searchVenues}
+										areaSelectFieldChange={
+											areaSelectFieldChange
 										}
-										closeViewDetailsModal={
-											closeViewDetailsModal
+										inputRangetFieldChange={
+											inputRangetFieldChange
 										}
-										showViewDetailsModal={
-											showViewDetailsModal
+										getNearbyVenues={getNearbyVenues}
+										GET_NEARBY_VENUES_REQUESTS={
+											GET_NEARBY_VENUES_REQUESTS
 										}
 									/>
 								</div>
-								<div className="col-lg-6 col-12">
-									{selectedVenue && selectedVenue.location && (
-										<div
-											className="venue-map-container mt-4"
-											id="venue-map-container"
-										>
-											{
-												<VenueMap
-													location={
-														selectedVenue.location
-													}
-												/>
-											}
-										</div>
-									)}
-								</div>
 							</div>
 						</div>
-					</Animated>
+					</div>
+				</Animated>
+
+				{getNearByVenuesApiError &&
+				getNearByVenuesApiError.meta &&
+				getNearByVenuesApiError.meta.code ? (
+					<ErrorDisplay errorMessage="Cannot retrieve the data of nearby venues due to the occurrence of an unexpected error. So, the service is currently unavailable." />
+				) : (
+					undefined
 				)}
 
 				{isLoading && <Loading />}
@@ -279,45 +208,6 @@ class Home extends React.Component {
 									);
 								})}
 							</Slider>
-
-							{/* <div className="row row-flex">
-									{venueList.map((venue, index) => {
-										let address = filteredVenuesListLength
-											? venue['location.address']
-											: venue.location.address,
-											category = filteredVenuesListLength
-												? venue['categories.0.name']
-												: venue.categories[0].name,
-											distance = filteredVenuesListLength
-												? venue['location.distance']
-												: venue.location.distance;
-										return (
-
-											<div
-												className="col-lg-4 col-sm-6 col-xs-12 mt-4"
-												key={index}
-											>
-												<SearchedVenue
-													id={venue.id}
-													name={venue.name}
-													address={
-														address
-															? address
-															: `Dhaka (Details not availbale)`
-													}
-													category={
-														category ? category : `N/A`
-													}
-													distance={
-														distance ?
-															`${(distance / 1000).toFixed(2)} KM` :
-															`N/A`
-													}
-												/>
-											</div>
-										);
-									})}
-								</div> */}
 						</div>
 					</Animated>
 				) : (

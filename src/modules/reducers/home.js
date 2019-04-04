@@ -94,7 +94,7 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				isLoading: false,
-				getNearByVenuesApiError: action.payload.getNearByVenuesApiError
+				getNearByVenuesApiError: action.payload.response
 			};
 
 		/**

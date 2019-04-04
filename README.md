@@ -114,7 +114,6 @@ I've used a prominent Promise based HTTP client for the browser and node.js name
 * <b>connected-react-router</b> - A Redux binding for React Router v4.
 * <b>prop-types</b> - Runtime type checking for React props and similar objects.
 * <b>history</b> - Manage session history with JavaScript.
-* <b>react-notification-system-redux</b> - Wraps react-notification-system into a component and exposes actions and reducer.
 * <b>react-responsive-modal</b> - A simple responsive react modal compatible with React .
 * <b>react-ionicons</b> - Provides ionicons icons as React components.
 * <b>flat</b> - Take a nested Javascript object and flatten it.
@@ -122,7 +121,7 @@ I've used a prominent Promise based HTTP client for the browser and node.js name
 
 ### Trade-offs/Issues/Concerns/Thoughts
 
-* Foursquare uses two forms of authentication: Userless auth and user        auth. I have used the userless auth. This is suitable for server side      applications. To make a userless request, I needed to specify my       
+* Foursquare uses two forms of authentication: Userless auth and user auth. I have used the userless auth. This is suitable for server side      applications. To make a userless request, I needed to specify my       
   consumer key’s Client ID and Secret instead of an auth token in the request URL.
   So, an API might look like these:
 

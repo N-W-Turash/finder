@@ -1,11 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# v1.0.0 - 2019-04-04
+### Added
+- Wrote ErrorDisplay component for displaying error messages.
+### Fixed
+- Fixed react-select menu z-index problem.
+
 ## v1.0.0 - 2019-03-29
-### Removed
-- Removed the random selection feature.
 ### Added
 - Now users can see the retrieved venues within a carousel.
+### Removed
+- Removed the random selection feature.
 
 ## v0.0.2 - 2019-03-26
 ### Added

@@ -97,6 +97,7 @@ export const getNearbyVenues = (latLng, radius) => {
 				if (error.response) {
 					let errors = error.response.data;
 					dispatch(getNearbyVenuesFailure(errors));
+					console.log('errors->', errors);
 				} else if (error.request) {
 					console.log(error.request);
 				} else {
